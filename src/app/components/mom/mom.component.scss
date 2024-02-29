@@ -1,0 +1,33 @@
+// Define styles for the parent container
+.mom-container {
+  background-image: linear-gradient(
+    140deg,
+    rgb(35, 2, 109) 60%,
+    rgb(61, 100, 244) 100%
+  ); // Background color for the parent container
+  padding: 20px; // Add some padding to create space around the content
+}
+
+// Style the image
+.mom-image {
+  max-width: 70%; // Ensure the image doesn't exceed its container's width
+  height: auto; // Maintain aspect ratio
+  //   border-radius: ; // Make the image circular
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); // Add a subtle box shadow
+}
+.mom-para {
+  padding: 10px 20px 0 0;
+  font-size: 18px;
+  line-height: 35px;
+}
+
+@media only screen and (max-width: 600px) {
+  .mom-image {
+    padding-bottom: 20px;
+  }
+  .mom-para {
+    padding: 10px 0 0 10px;
+    font-size: 15px;
+    line-height: 24px;
+  }
+}

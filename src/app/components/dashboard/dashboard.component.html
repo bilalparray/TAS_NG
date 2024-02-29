@@ -1,0 +1,273 @@
+<div class="container dashboard-container">
+  <div class="row text-center">
+    <div class="col-md-6 mb-3 mb-md-0">
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#addPlayer"
+        (click)="passId('')"
+      >
+        Add Player
+      </button>
+    </div>
+    <div class="col-md-6">
+      <button
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#updateMOM"
+      >
+        Update MOM
+      </button>
+    </div>
+  </div>
+  <!-- table row -->
+  <div class="row">
+    <div class="col">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">ImageUrl</th>
+              <th scope="col">Role</th>
+              <th scope="col">Rank</th>
+              <th scope="col">Route</th>
+              <th scope="col">Edit</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let player of players">
+              <td>{{ player._id }}</td>
+              <td>{{ player.name }}</td>
+              <td>{{ player.image }}</td>
+              <td>{{ player.role }}</td>
+              <td>{{ player.ranking }}</td>
+              <td>{{ player.route }}</td>
+              <td>
+                <i
+                  class="fa fa-edit"
+                  aria-hidden="true"
+                  (click)="passId(player._id)"
+                  data-bs-toggle="modal"
+                  data-bs-target="#addPlayer"
+                ></i>
+              </td>
+              <td>
+                <i
+                  class="fa fa-trash"
+                  aria-hidden="true"
+                  (click)="deletePlayer(player._id)"
+                ></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- add player modal -->
+<!-- Modal for player modal -->
+<div
+  class="modal fade"
+  id="addPlayer"
+  tabindex="-1"
+  aria-labelledby="addPlayerLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="addPlayerLabel">Add Player</h1>
+        <button
+          #closeModal
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col">
+            <label for="name" class="pb-2">Enter Full Name</label>
+            <input
+              type="text"
+              id="name"
+              class="form-control"
+              required
+              minlength="4"
+              appForbiddenName="bob"
+              [(ngModel)]="formData.name"
+            />
+          </div>
+        </div>
+        <div class="row pt-3">
+          <div class="col">
+            <label for="power" class="pb-2">Enter Role</label>
+            <input
+              id="power"
+              type="text"
+              required="required"
+              class="form-control"
+              minlength="4"
+              placeholder="Batter"
+              [(ngModel)]="formData.role"
+            />
+          </div>
+        </div>
+        <div class="row pt-3">
+          <div class="col">
+            <label for="power" class="pb-2">Enter Route</label>
+            <input
+              id="power"
+              type="text"
+              required="required"
+              class="form-control"
+              minlength="4"
+              placeholder="/home"
+              [(ngModel)]="formData.route"
+            />
+          </div>
+        </div>
+        <div class="row pt-3">
+          <div class="col">
+            <label for="power" class="pb-2">Enter Rank</label>
+            <input
+              id="power"
+              type="text"
+              required="required"
+              class="form-control"
+              minlength="4"
+              placeholder="1 or 2 or ...."
+              [(ngModel)]="formData.ranking"
+            />
+          </div>
+        </div>
+        <div class="row pt-3">
+          <div class="col">
+            <label for="image" class="pb-2">Enter Your Image Url</label>
+            <input
+              id="image"
+              type="text"
+              required="required"
+              class="form-control"
+              placeholder="https://teamawesomesozeith.com/images/bilal.png"
+              [(ngModel)]="formData.image"
+            />
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <!-- Modal BUttons -->
+          <button type="button" class="btn btn-primary" (click)="addPlayer()">
+            Save
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="updatePlayer()"
+          >
+            Update
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal for updating mom -->
+<div
+  class="modal fade"
+  id="updateMOM"
+  tabindex="-1"
+  aria-labelledby="updateMOMLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="updateMOMLabel">
+          Update Man of the Match
+        </h1>
+        <button
+          #closeModal
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col">
+            <label for="name" class="pb-2">Enter Full Name</label>
+            <input
+              type="text"
+              id="name"
+              class="form-control"
+              required
+              minlength="4"
+              appForbiddenName="bob"
+              [(ngModel)]="this.momData.name"
+            />
+          </div>
+        </div>
+
+        <div class="row pt-3">
+          <div class="col">
+            <label for="power" class="pb-2">Enter Text</label>
+            <input
+              id="power"
+              type="text"
+              required="required"
+              class="form-control"
+              minlength="4"
+              [(ngModel)]="this.momData.text"
+            />
+          </div>
+        </div>
+
+        <div class="row pt-3">
+          <div class="col">
+            <label for="image" class="pb-2">Enter Mom Image Url</label>
+            <input
+              id="image"
+              type="text"
+              required="required"
+              class="form-control"
+              placeholder="https://teamawesomesozeith.com/images/bilal.png"
+              [(ngModel)]="this.momData.image"
+            />
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            #closeMomModal
+          >
+            Close
+          </button>
+          <!-- Modal BUttons -->
+
+          <button type="button" class="btn btn-primary" (click)="updateMOM()">
+            Update
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

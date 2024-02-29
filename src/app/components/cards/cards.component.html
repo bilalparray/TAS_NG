@@ -1,0 +1,35 @@
+<div class="container card-container pt-5">
+  <div class="row pb-3">
+    <div class="col-12 text-center">
+      <h3 class="card-heading">Our Stars</h3>
+    </div>
+  </div>
+  <div class="row d-flex justify-content-center gy-3">
+    <div
+      class="col-12 col-sm-6 col-md-4 col-lg-4 text-center"
+      *ngFor="let player of players"
+    >
+      <div class="card">
+        <div class="image-container">
+          <img
+            class="card-img-top img"
+            src="{{ player.image }}"
+            alt="Card image cap"
+          />
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ player.name
+            }}<span class="text-muted fs-6"> ({{ player.role }})</span>
+          </h5>
+          <h6 class="card-subtitle mb-2 text-muted pt-2 pb-2">
+            Team Awesome Ranking :
+            {{ player.ranking }}
+          </h6>
+
+          <a routerLink="{{ player.route }}" class="btn btn-primary">Profile</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
