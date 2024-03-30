@@ -1,0 +1,41 @@
+import { BaseViewModel } from "../internal/base.viewmodel";
+
+export class favoritesViewModel implements BaseViewModel {
+  PageTitle: string = "";
+  title: string = "";
+  sno: number = 0;
+  isFrequency!: boolean;
+  receivedSearchValue: string = "";
+  filteredCommonConverters: any[] = [];
+  isWeight!: boolean;
+  isSpeed!: boolean;
+  isArea!: boolean;
+  isLength!: boolean;
+  isTemperature!: boolean;
+  isVolume!: boolean;
+  weightIsFavorite!: boolean;
+  area!: number;
+  targetUnit: string = "";
+  squareMeter!: number;
+  squareKM!: number;
+  squareFeet!: number;
+  acre!: number;
+  hectare!: number;
+  squareMile!: number;
+  squareYard!: number;
+  isFavorite!: boolean;
+  imgSrc!: string;
+  isForce!: boolean;
+  isPressure!: boolean;
+  isPower!: boolean;
+  isWork!: boolean;
+  isCurrent!: boolean;
+  isTime!: boolean;
+  isPlaneAngle!: boolean;
+  searchArrayFromConverters!: string[];
+  selectedItem!: any;
+  isSelect!: boolean;
+  isCooking!: boolean;
+  isFuel!: boolean;
+  isStorage!: boolean;
+}

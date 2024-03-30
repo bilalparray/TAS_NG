@@ -16,6 +16,9 @@ export class PlayerService {
   getPlayers(): Observable<any> {
     return this.http.get(this.url + 'players');
   }
+  getMain(): Observable<any> {
+    return this.http.get(this.url);
+  }
   // add players
   addPlayer(newPlayer: Players): Observable<any> {
     return this.http.post(this.url + 'create', newPlayer);

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Players } from 'src/app/models/player';
 
 import { PlayerService } from 'src/app/services/player.service';
+import { PlayersService } from 'src/app/services/players.service';
 @Component({
   selector: 'app-cards',
   templateUrl: './cards.component.html',
@@ -12,7 +13,10 @@ export class CardsComponent {
   player!: Players;
   //to hide or show cards
 
-  constructor(private playerService: PlayerService) {}
+  constructor(
+    private playersService: PlayersService,
+    private playerService: PlayerService
+  ) {}
   ngOnInit(): void {
     //callling the get players function on initialiszatin or start
     this.getPlayers();
@@ -37,4 +41,13 @@ export class CardsComponent {
   // onSelect(player: Players) {
   //   this.player = player;
   // }
+
+  async getAllPlayers() {
+    try {
+      let resp = await this.playersService.getAllPlayers();
+      console.log(resp);
+    } catch (error) {
+      throw error;
+    }
+  }
 }
