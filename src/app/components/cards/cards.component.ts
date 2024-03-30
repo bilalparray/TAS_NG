@@ -20,15 +20,17 @@ export class CardsComponent {
   // /getting players from api
   getPlayers() {
     return this.playerService.getPlayers().subscribe((data) => {
-      this.players = data.players.sort((a: any, b: any) => {
-        if (a.ranking > b.ranking) {
-          return 1;
-        } else if (a.ranking < b.ranking) {
-          return -1;
-        } else {
-          return 0;
-        }
-      });
+      console.log(data);
+      this.players = data;
+      // this.players = data.players.sort((a: any, b: any) => {
+      //   if (a.ranking > b.ranking) {
+      //     return 1;
+      //   } else if (a.ranking < b.ranking) {
+      //     return -1;
+      //   } else {
+      //     return 0;
+      //   }
+      // });
     });
   }
 

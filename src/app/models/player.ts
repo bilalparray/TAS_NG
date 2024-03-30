@@ -6,6 +6,10 @@ export interface Players {
   image: string;
   url: string;
   route: string;
+  runsScored: string;
+  ballsFaced: string;
+  wicketsTaken: string;
+  lastFour: string;
 }
 export interface Mom {
   id: number;

@@ -8,10 +8,10 @@ import { Mom, Players } from '../models/player';
 export class PlayerService {
   constructor(private http: HttpClient) {}
   // url for players
-  private url = 'https://teamawesomebackend-production.up.railway.app/api/';
+  private url = 'http://tasbackend.onrender.com/';
+  // private url = 'http://localhost:3000/';
   // url for MOM
-  private momUrl =
-    'https://teamawesomeapi-production.up.railway.app/api/products/mom';
+  private momUrl = 'http://tasbackend.onrender.com/players';
   // fetch players
   getPlayers(): Observable<any> {
     return this.http.get(this.url + 'players');

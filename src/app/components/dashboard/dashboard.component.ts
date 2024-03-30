@@ -27,6 +27,10 @@ export class DashboardComponent {
     image: '',
     url: '',
     route: '',
+    runsScored: '',
+    ballsFaced: '',
+    wicketsTaken: '',
+    lastFour: '',
   };
   // clear the form
   clearForm() {
@@ -38,6 +42,10 @@ export class DashboardComponent {
       image: '',
       url: '',
       route: '',
+      runsScored: '',
+      ballsFaced: '',
+      wicketsTaken: '',
+      lastFour: '',
     };
   }
   playerId: string = '';
