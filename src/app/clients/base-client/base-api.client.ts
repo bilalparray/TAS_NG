@@ -1,22 +1,22 @@
-import { AxiosResponse, Method } from "axios";
+import { AxiosResponse, Method } from 'axios';
 import {
   AdditionalRequestDetails,
   Authentication,
-} from "../../models/internal/additional-request-details";
-import { StorageService } from "src/app/services/storage.service";
-import { AppConstants } from "../../../app-constants";
-import { StorageCache } from "../helpers/storage-cache.helper";
-import { environment } from "src/environments/environment";
-import { BaseAjaxClient } from "./base-ajax.client";
-import { IDictionaryCollection } from "src/app/models/internal/Idictionary-collection";
-import { DictionaryCollection } from "src/app/models/internal/dictionary-collection";
-import { ApiRequest } from "src/app/models/service/api-contracts/base/api-request";
-import { ApiResponse } from "src/app/models/service/api-contracts/base/api-response";
-import { ErrorData } from "src/app/models/service/api-contracts/error-data";
-import { QueryFilter } from "src/app/models/service/api-contracts/query-filter";
-import { ApiErrorTypeSM } from "src/app/models/service/enums/api-error-type-s-m.enum";
-import { CommonResponseCodeHandler } from "../helpers/common-response-code-handler.helper";
-import { CommonUtils } from "../helpers/common-utils.helper";
+} from '../../models/internal/additional-request-details';
+import { StorageService } from 'src/app/services/storage.service';
+import { AppConstants } from '../../../app-constants';
+import { StorageCache } from '../helpers/storage-cache.helper';
+import { environment } from 'src/environments/environment';
+import { BaseAjaxClient } from './base-ajax.client';
+import { IDictionaryCollection } from 'src/app/models/internal/Idictionary-collection';
+import { DictionaryCollection } from 'src/app/models/internal/dictionary-collection';
+import { ApiRequest } from 'src/app/models/service/api-contracts/base/api-request';
+import { ApiResponse } from 'src/app/models/service/api-contracts/base/api-response';
+import { ErrorData } from 'src/app/models/service/api-contracts/error-data';
+import { QueryFilter } from 'src/app/models/service/api-contracts/query-filter';
+import { ApiErrorTypeSM } from 'src/app/models/service/enums/api-error-type-s-m.enum';
+import { CommonResponseCodeHandler } from '../helpers/common-response-code-handler.helper';
+import { CommonUtils } from '../helpers/common-utils.helper';
 
 export abstract class BaseApiClient extends BaseAjaxClient {
   constructor(
@@ -28,7 +28,7 @@ export abstract class BaseApiClient extends BaseAjaxClient {
   }
   protected GetResponseAsync = async <InReq, OutResp>(
     relativeUrl: string,
-    reqMethod: Method = "GET",
+    reqMethod: Method = 'GET',
     reqBody: ApiRequest<InReq> | null = null,
     additionalRequestDetails: AdditionalRequestDetails<OutResp> = new AdditionalRequestDetails<OutResp>(
       false
@@ -38,7 +38,7 @@ export abstract class BaseApiClient extends BaseAjaxClient {
     let axiosResp: AxiosResponse<any> | null = null;
     if (additionalRequestDetails == null)
       throw new Error(
-        "AdditionalRequestDetails cannot be null, do not pass if not required."
+        'AdditionalRequestDetails cannot be null, do not pass if not required.'
       );
 
     try {
@@ -58,24 +58,24 @@ export abstract class BaseApiClient extends BaseAjaxClient {
         additionalRequestDetails.headers = await this.AddCommonHeaders(
           additionalRequestDetails.headers
         );
-        if (additionalRequestDetails.enableAuth === Authentication.true) {
-          let token: string = await this.storageservice.getFromStorage(
-            AppConstants.DbKeys.ACCESS_TOKEN
-          );
-          if (token == null || token === "")
-            throw new Error(`Token not found for URL - '${relativeUrl}'.`);
-          else
-            additionalRequestDetails.headers.Add(
-              "Authorization",
-              "Bearer " + token
-            );
-        }
-        if (reqMethod === "GET") {
+        // if (additionalRequestDetails.enableAuth === Authentication.true) {
+        //   let token: string = await this.storageservice.getFromStorage(
+        //     AppConstants.DbKeys.ACCESS_TOKEN
+        //   );
+        //   if (token == null || token === "")
+        //     throw new Error(`Token not found for URL - '${relativeUrl}'.`);
+        //   else
+        //     additionalRequestDetails.headers.Add(
+        //       "Authorization",
+        //       "Bearer " + token
+        //     );
+        // }
+        if (reqMethod === 'GET') {
           // validations
           // eg no body, proper url etc
-        } else if (reqMethod === "POST") {
+        } else if (reqMethod === 'POST') {
           // validations
-        } else if (reqMethod === "DELETE") {
+        } else if (reqMethod === 'DELETE') {
           // validations
         }
 
@@ -103,7 +103,7 @@ export abstract class BaseApiClient extends BaseAjaxClient {
           additionalRequestDetails.custRespResolver
         );
         if (responseEntity == null) {
-          throw new Error("Null Response Formed.");
+          throw new Error('Null Response Formed.');
         }
 
         // add response to cache if applicable
@@ -116,7 +116,7 @@ export abstract class BaseApiClient extends BaseAjaxClient {
         return responseEntity;
       }
     } catch (x) {
-      let msg = "";
+      let msg = '';
       if (x instanceof Error) msg = x.message;
       else msg = JSON.stringify(x);
       const resp = this.CreateGenericApiResponseObject<OutResp>(msg);
@@ -172,7 +172,7 @@ export abstract class BaseApiClient extends BaseAjaxClient {
     if (queryFilter === undefined || queryFilter === null) {
       return currentUrlToHit;
     }
-    let urlQuery: string = "";
+    let urlQuery: string = '';
     //code for search, orderby etc to be added needs to be as per the odata query format
     if (queryFilter.skip >= 0 && queryFilter.top > 0)
       urlQuery += `$skip=${queryFilter.skip}&$top=${queryFilter.top}`;
@@ -182,11 +182,11 @@ export abstract class BaseApiClient extends BaseAjaxClient {
       queryFilter.searchText != undefined &&
       queryFilter.searchText.length > 0
     ) {
-      if (urlQuery != "" && urlQuery.length > 0) urlQuery += "&";
+      if (urlQuery != '' && urlQuery.length > 0) urlQuery += '&';
       urlQuery += `search=${queryFilter.searchText}`;
     }
     // add other query like orderby etc as per odata
-    if (currentUrlToHit.indexOf("?") > 0)
+    if (currentUrlToHit.indexOf('?') > 0)
       currentUrlToHit = `${currentUrlToHit}&${urlQuery}`;
     else currentUrlToHit = `${currentUrlToHit}?${urlQuery}`;
 

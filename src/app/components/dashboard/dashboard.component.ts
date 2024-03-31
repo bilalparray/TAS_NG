@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { EmptyError } from 'rxjs';
 import { Mom, Players } from 'src/app/models/player';
-import { PlayerService } from 'src/app/services/player.service';
+import { PlayersService } from 'src/app/services/players.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -58,72 +58,72 @@ export class DashboardComponent {
     text: '',
     image: '',
   };
-  constructor(private playerService: PlayerService) {}
+  constructor(private playersService: PlayersService) {}
   ngOnInit() {
     //callling the get players function on initialiszatin or start
-    this.getPlayers();
+    // this.getPlayers();
   }
   // /getting players from api
-  getPlayers() {
-    return this.playerService.getPlayers().subscribe((data) => {
-      this.players = data.players;
-      console.table(this.players);
-    });
-  }
+  // getPlayers() {
+  //   return this.playersService.getAllPlayers().subscribe((data) => {
+  //     this.players = data.players;
+  //     console.table(this.players);
+  //   });
+  // }
 
-  // passing id from buttons
-  passId(id: string) {
-    this.playerId = id;
-    if (this.playerId !== '') {
-      this.getById(this.playerId);
-    } else {
-      this.clearForm();
-    }
-  }
+  // // passing id from buttons
+  // passId(id: string) {
+  //   this.playerId = id;
+  //   if (this.playerId !== '') {
+  //     this.getById(this.playerId);
+  //   } else {
+  //     this.clearForm();
+  //   }
+  // }
 
-  // dleete pLyer
-  deletePlayer(_id: string) {
-    this.playerService.deletePlayer(_id).subscribe((res) => {
-      this.getPlayers();
-      alert(res.message);
-    });
-  }
-  // get by id
-  getById(id: string) {
-    this.playerService.getById(id).subscribe((res) => {
-      this.formData = res;
-    });
-  }
+  // // dleete pLyer
+  // deletePlayer(_id: string) {
+  //   this.playerService.deletePlayer(_id).subscribe((res) => {
+  //     this.getPlayers();
+  //     alert(res.message);
+  //   });
+  // }
+  // // get by id
+  // getById(id: string) {
+  //   this.playerService.getById(id).subscribe((res) => {
+  //     this.formData = res;
+  //   });
+  // }
 
-  // addPlayer
-  addPlayer() {
-    this.playerService.addPlayer(this.formData).subscribe((res) => {
-      this.clearForm();
-      this.getPlayers();
-      this.closeModal.nativeElement.click();
-    });
-  }
-  //update Player
-  updatePlayer() {
-    this.playerService.updatePlayer(this.playerId, this.formData).subscribe(
-      () => {
-        // Success: Refresh the list, close the modal, and clear the form
-        this.getPlayers();
-        this.closeModal.nativeElement.click();
-        this.clearForm();
-      },
-      (error) => {
-        // Error handling: Log the error or handle it appropriately
-        console.error('Update failed:', error);
-      }
-    );
-  }
+  // // addPlayer
+  // addPlayer() {
+  //   this.playerService.addPlayer(this.formData).subscribe((res) => {
+  //     this.clearForm();
+  //     this.getPlayers();
+  //     this.closeModal.nativeElement.click();
+  //   });
+  // }
+  // //update Player
+  // updatePlayer() {
+  //   this.playerService.updatePlayer(this.playerId, this.formData).subscribe(
+  //     () => {
+  //       // Success: Refresh the list, close the modal, and clear the form
+  //       this.getPlayers();
+  //       this.closeModal.nativeElement.click();
+  //       this.clearForm();
+  //     },
+  //     (error) => {
+  //       // Error handling: Log the error or handle it appropriately
+  //       console.error('Update failed:', error);
+  //     }
+  //   );
+  // }
 
-  // updateMOM
-  updateMOM() {
-    this.playerService.updateMOM(this.momData).subscribe((res) => {
-      this.momData = res;
-      this.closeMomModal.nativeElement.click();
-    });
-  }
+  // // updateMOM
+  // updateMOM() {
+  //   this.playerService.updateMOM(this.momData).subscribe((res) => {
+  //     this.momData = res;
+  //     this.closeMomModal.nativeElement.click();
+  //   });
+  // }
 }

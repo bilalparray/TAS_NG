@@ -30,7 +30,7 @@ export class PlayersClient extends BaseApiClient {
   /**Get all players */
   GetAllPlayers = async (): Promise<ApiResponse<Players[]>> => {
     let resp = await this.GetResponseAsync<number, Players[]>(
-      `${AppConstants.ApiUrls.DUMMY_TEACHER_URL}`,
+      `${AppConstants.ApiUrls.PLAYERS}`,
       'GET'
     );
     return resp;

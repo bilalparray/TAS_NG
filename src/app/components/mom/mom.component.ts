@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Mom } from 'src/app/models/player';
-import { PlayerService } from 'src/app/services/player.service';
+// import { PlayerService } from 'src/app/services/player.service';
 
 @Component({
   selector: 'app-mom',
@@ -9,14 +9,14 @@ import { PlayerService } from 'src/app/services/player.service';
 })
 export class MomComponent {
   momData: any = {};
-  constructor(private playerService: PlayerService) {}
+  // constructor(private playerService: PlayerService) {}
   ngOnInit() {
-    this.getMom();
+    // this.getMom();
   }
   // fetch mom
-  getMom() {
-    this.playerService.getMom().subscribe((data) => {
-      this.momData = data.mom[0];
-    });
-  }
+  // getMom() {
+  //   this.playerService.getMom().subscribe((data) => {
+  //     this.momData = data.mom[0];
+  //   });
+  // }
 }
