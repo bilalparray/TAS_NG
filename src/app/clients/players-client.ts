@@ -35,4 +35,12 @@ export class PlayersClient extends BaseApiClient {
     );
     return resp;
   };
+  /**Get all players */
+  GetPlayerById = async (id: string): Promise<ApiResponse<Players>> => {
+    let resp = await this.GetResponseAsync<string, Players>(
+      `${AppConstants.ApiUrls.PLAYER}/${id}`,
+      'GET'
+    );
+    return resp;
+  };
 }

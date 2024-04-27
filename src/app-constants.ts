@@ -8,11 +8,8 @@ export const AppConstants = {
     ACCOUNT_URL: 'api/token',
     DUMMY_TEACHER_URL: 'api/DummyTeacher',
     DUMMY_STUDENT_URL: 'api/token',
-    CURRENCY_API_URL:
-      'https://openexchangerates.org/api/latest.json?app_id=4aaaec5ff9444f65b294ed3e78f2963b',
-    // VERSION_API_URL: "/api/v1/ApplicationUser/unitconvertor/Version",
-    VERSION_API_URL: '/api/v1/CompanyAdditionalInfo/VersionInfo',
-    PLAYERS: 'players',
+    PLAYERS: '/api/players',
+    PLAYER: '/api/data',
   },
 
   AppSpecific: {},
@@ -24,11 +21,6 @@ export const AppConstants = {
     PLATFORM: 'PLATFORM',
     REMEMBER_PWD: 'REMEMBER_PWD',
     COMPANY_CODE: 'COMPANY_CODE',
-    COMMON_CONVERTERS: 'comConv',
-    FAVORITES_CONVERTERS: 'FAVORITES_CONVERTERS',
-    HISTORY: 'HISTORY',
-    FIRST_TIME_INSTALL: 'FIRST_TIME_INSTALL',
-    CURRENT_THEME: 'THEME',
   },
   DbDefaultValues: {},
   ErrorPrompts: {

@@ -1,13 +1,13 @@
 <!-- Profile Section Starts here -->
-<div class="container-fluid m-0 p-0 profo">
+<div class="container-fluid m-0 p-0 profo" *ngIf="player">
   <div class="row">
     <div class="col-12 profile">
       <div class="imgdiv">
         <img src="assets/images/bilal.png" alt="Images of Bilal" />
       </div>
       <div class="name">
-        <h3>Bilal Ahmad Parray</h3>
-        <h6>Batsman</h6>
+        <h3>{{ player.name }}</h3>
+        <h6>{{ player.role }}</h6>
       </div>
     </div>
   </div>
@@ -59,13 +59,15 @@
               <h2>2023</h2>
               <tr>
                 <th scope="col">Matches</th>
-                <td scope="col" id="BilalMatches"></td>
+                <td scope="col" id="BilalMatches">
+                  {{ player.scores.runs.length }}
+                </td>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <th scope="row">Runs</th>
-                <td scope="col" id="BilalScore"></td>
+                <td scope="col" id="BilalScore">{{ player.scores.runs }}</td>
               </tr>
               <tr>
                 <th scope="row">Balls</th>

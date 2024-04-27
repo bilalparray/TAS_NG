@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Players } from 'src/app/models/player';
+import { Router } from '@angular/router';
 
 import { PlayersService } from 'src/app/services/players.service';
 @Component({
@@ -12,7 +13,7 @@ export class CardsComponent {
   player!: Players;
   //to hide or show cards
 
-  constructor(private playersService: PlayersService) {}
+  constructor(private playersService: PlayersService, private router: Router) {}
   ngOnInit(): void {
     //callling the get players function on initialiszatin or start
 
@@ -56,5 +57,10 @@ export class CardsComponent {
     } catch (error) {
       throw error;
     }
+  }
+
+  goToProfilePage(id: string) {
+    console.log(id);
+    this.router.navigate(['/player/', id]);
   }
 }

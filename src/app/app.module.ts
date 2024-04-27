@@ -9,6 +9,7 @@ import { MomComponent } from './components/mom/mom.component';
 import { HomeComponent } from './components/home/home.component';
 import { CardsComponent } from './components/cards/cards.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PlayerComponent } from './components/player/player.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
     MomComponent,
     HomeComponent,
     CardsComponent,
+    PlayerComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],

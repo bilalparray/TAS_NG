@@ -10,6 +10,17 @@ export interface Players {
   ballsFaced: string;
   wicketsTaken: string;
   lastFour: string;
+  scores: {
+    runs: [string];
+    wickets: [string];
+    balls: [string];
+    lastfour: [string];
+    career: {
+      runs: [string];
+      wickets: [string];
+      balls: [string];
+    };
+  };
 }
 export interface Mom {
   id: number;

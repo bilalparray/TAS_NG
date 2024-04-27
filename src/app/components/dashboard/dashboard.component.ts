@@ -19,34 +19,34 @@ export class DashboardComponent {
   @ViewChild('closeModal') closeModal!: ElementRef;
   @ViewChild('closeMomModal') closeMomModal!: ElementRef;
   players: Players[] = [];
-  formData: Players = {
-    _id: '',
-    name: '',
-    role: '',
-    ranking: '',
-    image: '',
-    url: '',
-    route: '',
-    runsScored: '',
-    ballsFaced: '',
-    wicketsTaken: '',
-    lastFour: '',
-  };
+  // formData: Players = {
+  //   _id: '',
+  //   name: '',
+  //   role: '',
+  //   ranking: '',
+  //   image: '',
+  //   url: '',
+  //   route: '',
+  //   runsScored: '',
+  //   ballsFaced: '',
+  //   wicketsTaken: '',
+  //   lastFour: '',
+  // };
   // clear the form
   clearForm() {
-    this.formData = {
-      _id: '',
-      name: '',
-      role: '',
-      ranking: '',
-      image: '',
-      url: '',
-      route: '',
-      runsScored: '',
-      ballsFaced: '',
-      wicketsTaken: '',
-      lastFour: '',
-    };
+    // this.formData = {
+    //   _id: '',
+    //   name: '',
+    //   role: '',
+    //   ranking: '',
+    //   image: '',
+    //   url: '',
+    //   route: '',
+    //   runsScored: '',
+    //   ballsFaced: '',
+    //   wicketsTaken: '',
+    //   lastFour: '',
+    // };
   }
   playerId: string = '';
 

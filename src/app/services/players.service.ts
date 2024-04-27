@@ -19,4 +19,7 @@ export class PlayersService extends BaseService {
   async getAllPlayers(): Promise<ApiResponse<Players[]>> {
     return await this.playersClient.GetAllPlayers();
   }
+  async getPlayerById(id: string): Promise<ApiResponse<Players>> {
+    return await this.playersClient.GetPlayerById(id);
+  }
 }

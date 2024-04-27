@@ -34,7 +34,9 @@
           <br />
           <p>Balls Faced: {{ player.ballsFaced }}</p>
           <br />
-          <a routerLink="{{ player.route }}" class="btn btn-primary">Profile</a>
+          <a class="btn btn-primary" (click)="goToProfilePage(player._id)"
+            >Profile</a
+          >
         </div>
       </div>
     </div>

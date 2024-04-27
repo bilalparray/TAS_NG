@@ -8,7 +8,7 @@ export const environment = {
   enableResponseCacheProcessing: true,
   applicationVersion: '1.0.0', //on this we are checking curruent version and api version then allowing user to use the app if he has updated version.
   apiDefaultTimeout: 10,
-  apiBaseUrl: 'https://tasbackend.onrender.com',
+  apiBaseUrl: 'https://teamawesomebackend.onrender.com',
   LoggingInfo: {
     cacheLogs: true,
     logToConsole: true,
@@ -22,17 +22,6 @@ export const environment = {
     localLogFilePath: 'Sample.log',
   },
   encryptionKey: '12345678',
-
-  playstoreLink:
-    'https://play.google.com/store/apps/details?id=com.rovio.baba&hl=en&gl=US', ///to be changed to actual app play store url
-  appStoreLink: '', //to be channged for app store link
-  GoogleAdsInfo: {
-    appId: 'ca-app-pub-2369888874710587~756492074',
-    showAds: false,
-    bannerId: 'ca-app-pub-2369888874710587/214450845',
-    showBannerAds: true,
-  },
-  applicationReleaseDate: new Date('2024-01-01'),
 };
 
 /*
