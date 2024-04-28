@@ -43,4 +43,28 @@ export class PlayersClient extends BaseApiClient {
     );
     return resp;
   };
+
+  /**Add a new teacher */
+  AddPlayer = async (
+    addPlayerRequest: ApiRequest<Players>
+  ): Promise<ApiResponse<Players>> => {
+    let resp = await this.GetResponseAsync<Players, Players>(
+      AppConstants.ApiUrls.PLAYER,
+      'POST',
+      addPlayerRequest
+    );
+    return resp;
+  };
+
+  UpdatePlayer = async (
+    player: ApiRequest<Players>
+  ): Promise<ApiResponse<Players>> => {
+    let resp = await this.GetResponseAsync<Players, Players>(
+      `${AppConstants.ApiUrls.PLAYER}/${player.reqData._id}`,
+      'PUT',
+      player,
+      new AdditionalRequestDetails<Players>(false, Authentication.false)
+    );
+    return resp;
+  };
 }

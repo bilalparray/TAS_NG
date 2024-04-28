@@ -4,12 +4,7 @@ export interface Players {
   role: string;
   ranking: string;
   image: string;
-  url: string;
-  route: string;
-  runsScored: string;
-  ballsFaced: string;
-  wicketsTaken: string;
-  lastFour: string;
+  born: string;
   scores: {
     runs: [string];
     wickets: [string];

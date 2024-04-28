@@ -1,4 +1,4 @@
-<!-- <div class="container dashboard-container">
+<div class="container dashboard-container">
   <div class="row text-center">
     <div class="col-md-6 mb-3 mb-md-0">
       <button
@@ -21,8 +21,8 @@
       </button>
     </div>
   </div>
-   table row -->
-<!-- <div class="row">
+  <!-- table row  -->
+  <div class="row">
     <div class="col">
       <div class="table-responsive">
         <table class="table table-bordered table-striped">
@@ -45,7 +45,6 @@
               <td>{{ player.image }}</td>
               <td>{{ player.role }}</td>
               <td>{{ player.ranking }}</td>
-              <td>{{ player.route }}</td>
               <td>
                 <i
                   class="fa fa-edit"
@@ -68,10 +67,10 @@
       </div>
     </div>
   </div>
-</div> -->
+</div>
 <!-- add player modal -->
 <!-- Modal for player modal -->
-<!-- <div
+<div
   class="modal fade"
   id="addPlayer"
   tabindex="-1"
@@ -90,97 +89,103 @@
           aria-label="Close"
         ></button>
       </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col">
-            <label for="name" class="pb-2">Enter Full Name</label>
-            <input
-              type="text"
-              id="name"
-              class="form-control"
-              required
-              minlength="4"
-              appForbiddenName="bob"
-              [(ngModel)]="formData.name"
-            />
+      <form #form="ngForm" (ngSubmit)="form_addRecipe(form)">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col">
+              <label for="name" class="pb-2">Enter Full Name</label>
+              <input
+                type="text"
+                id="name"
+                class="form-control"
+                required
+                minlength="4"
+                appForbiddenName="bob"
+                [(ngModel)]="viewModel.formData.name"
+              />
+            </div>
           </div>
-        </div>
-        <div class="row pt-3">
-          <div class="col">
-            <label for="power" class="pb-2">Enter Role</label>
-            <input
-              id="power"
-              type="text"
-              required="required"
-              class="form-control"
-              minlength="4"
-              placeholder="Batter"
-              [(ngModel)]="formData.role"
-            />
+          <div class="row pt-3">
+            <div class="col">
+              <label for="power" class="pb-2">Enter Role</label>
+              <input
+                id="power"
+                type="text"
+                required="required"
+                class="form-control"
+                minlength="4"
+                placeholder="Batter"
+                [(ngModel)]="viewModel.formData.role"
+              />
+            </div>
           </div>
-        </div>
-        <div class="row pt-3">
-          <div class="col">
-            <label for="power" class="pb-2">Enter Route</label>
-            <input
-              id="power"
-              type="text"
-              required="required"
-              class="form-control"
-              minlength="4"
-              placeholder="/home"
-              [(ngModel)]="formData.route"
-            />
+          <div class="row pt-3">
+            <div class="col">
+              <label for="power" class="pb-2">Enter Born</label>
+              <input
+                id="power"
+                type="text"
+                required="required"
+                class="form-control"
+                minlength="4"
+                placeholder="/home"
+                [(ngModel)]="viewModel.formData.born"
+              />
+            </div>
           </div>
-        </div>
-        <div class="row pt-3">
-          <div class="col">
-            <label for="power" class="pb-2">Enter Rank</label>
-            <input
-              id="power"
-              type="text"
-              required="required"
-              class="form-control"
-              minlength="4"
-              placeholder="1 or 2 or ...."
-              [(ngModel)]="formData.ranking"
-            />
+          <div class="row pt-3">
+            <div class="col">
+              <label for="power" class="pb-2">Enter Rank</label>
+              <input
+                id="power"
+                type="text"
+                required="required"
+                class="form-control"
+                minlength="4"
+                placeholder="1 or 2 or ...."
+                [(ngModel)]="viewModel.formData.ranking"
+              />
+            </div>
           </div>
-        </div>
-        <div class="row pt-3">
-          <div class="col">
-            <label for="image" class="pb-2">Enter Your Image Url</label>
-            <input
-              id="image"
-              type="text"
-              required="required"
-              class="form-control"
-              placeholder="https://teamawesomesozeith.com/images/bilal.png"
-              [(ngModel)]="formData.image"
-            />
+          <div class="row pt-3">
+            <div class="col">
+              <label for="image" class="pb-2">Enter Your Image</label>
+              <input
+                id="image"
+                type="file"
+                required="required"
+                class="form-control"
+                placeholder="https://teamawesomesozeith.com/images/bilal.png"
+                (change)="uploadFile($event)"
+              />
+            </div>
           </div>
-        </div>
 
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            Close
-          </button>
-          <!-- Modal BUttons -->
-<!-- <button type="button" class="btn btn-primary" (click)="addPlayer()">
-  Save
-</button>
-<button type="button" class="btn btn-primary" (click)="updatePlayer()">
-  Update
-</button>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <!-- Modal BUttons -->
+            <button type="submit" class="btn btn-primary" (click)="addPlayer()">
+              Save
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              (click)="updatePlayer()"
+            >
+              Update
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
-</div>
-</div>
-</div>
-</div> --> -->
 
 <!-- modal for updating mom -->
 <!-- <div
@@ -256,8 +261,8 @@
             #closeMomModal
           >
             Close
-          </button> -->
-<!-- Modal BUttons -->
+          </button>
+          <!-- Modal BUttons -->
 
 <!-- <button type="button" class="btn btn-primary" (click)="updateMOM()">
             Update
@@ -266,4 +271,4 @@
       </div>
     </div>
   </div>
-</div> --> -->
+</div> -->

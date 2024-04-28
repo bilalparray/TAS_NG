@@ -7,6 +7,7 @@ import { DeleteResponseRoot } from '../models/service/common-response/delete-res
 import { DummyTeacherSM } from '../models/service/v1/dummy-teacher-s-m';
 import { Players } from '../models/player';
 import { PlayersClient } from '../clients/players-client';
+import { ApiRequest } from '../models/service/api-contracts/base/api-request';
 
 @Injectable({
   providedIn: 'root',
@@ -21,5 +22,25 @@ export class PlayersService extends BaseService {
   }
   async getPlayerById(id: string): Promise<ApiResponse<Players>> {
     return await this.playersClient.GetPlayerById(id);
+  }
+
+  async addPlayer(player: Players): Promise<ApiResponse<Players>> {
+    if (player == null) {
+      throw new Error(AppConstants.ErrorPrompts.Invalid_Input_Data);
+    } else {
+      let apiRequest = new ApiRequest<Players>();
+      apiRequest.reqData = player;
+      return await this.playersClient.AddPlayer(apiRequest);
+    }
+  }
+
+  async updatePlayer(player: Players): Promise<ApiResponse<Players>> {
+    if (player == null) {
+      throw new Error(AppConstants.ErrorPrompts.Invalid_Input_Data);
+    } else {
+      let apiRequest = new ApiRequest<Players>();
+      apiRequest.reqData = player;
+      return await this.playersClient.UpdatePlayer(apiRequest);
+    }
   }
 }
