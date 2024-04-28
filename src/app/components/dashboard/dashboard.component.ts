@@ -6,7 +6,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { EmptyError } from 'rxjs';
 import { AppConstants } from 'src/app-constants';
 import { Mom, Players } from 'src/app/models/player';
@@ -28,28 +28,38 @@ export class DashboardComponent
   // view child of modal close
   @ViewChild('closeModal') closeModal!: ElementRef;
   @ViewChild('closeMomModal') closeMomModal!: ElementRef;
-  players: Players[] = [];
 
   // clear the form
-
+  playerForm!: FormGroup;
+  imageBase64: string | ArrayBuffer | null = null;
   constructor(
     private playersService: PlayersService,
+    private formBuilder: FormBuilder,
     commonService: CommonService,
     logHandler: LogHandlerService
   ) {
     super(commonService, logHandler);
     this.viewModel = new DashBoardViewModel();
+    this.playerForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      role: ['', Validators.required],
+      birthplace: ['', Validators.required],
+      image: [''],
+      born: ['', Validators.required],
+      // Add other form controls as needed
+    });
   }
   ngOnInit() {
-    //callling the get players function on initialiszatin or start
     this.getAllPlayers();
   }
+
   // /getting players from api
   async getAllPlayers() {
     try {
-      let resp = await this.playersService.getAllPlayers();
-      this.players = resp.axiosResponse.data.axiosResponse.data;
-      console.log(resp.axiosResponse.data);
+      this.playersService.getHttpPlayers().subscribe((res) => {
+        this.viewModel.players = res;
+        console.log(this.viewModel.players);
+      });
     } catch (error) {}
   }
 
@@ -89,16 +99,7 @@ export class DashboardComponent
   }
 
   // // addPlayer
-  async addPlayer() {
-    try {
-      console.log(this.viewModel.formData);
-
-      let resp = await this.playersService.addPlayer(this.viewModel.formData);
-      if (resp.isError) {
-        console.log('some error occurred while adding player');
-      }
-    } catch (error) {}
-  }
+  async addPlayer() {}
   // //update Player
   updatePlayer() {
     // this.playerService.updatePlayer(this.playerId, this.formData).subscribe(
@@ -130,62 +131,57 @@ export class DashboardComponent
         let fileName = event.target.files[0].name;
         fileName.split('?')[0].split('.').pop();
 
-        this.viewModel.formData.image = base64;
+        // this.viewModel.image = base64;
       });
   }
 
-  async form_addRecipe(form: NgForm) {
-    this.viewModel.FormSubmitted = true;
-    try {
-      this._commonService.presentLoading();
-      if (form.invalid) {
-        this.markAllControlsAsTouched(form);
-        return;
-      }
+  // onSubmit(): void {
+  //   if (this.playerForm.valid) {
+  //     const playerData: Players = {
+  //       _id: '',
+  //       name: this.playerForm.value.name,
+  //       role: this.playerForm.value.role,
+  //       birthplace: this.playerForm.value.birthplace,
+  //       image: this.imageBase64 as string,
+  //       born: this.playerForm.value.born,
+  //       scores: {
+  //         runs: [''],
+  //         wickets: [''],
+  //         balls: [''],
+  //         lastfour: [''],
+  //         career: {
+  //           runs: [''],
+  //           wickets: [''],
+  //           balls: [''],
+  //         },
+  //       },
+  //     };
+  //     this.playersService.addPlayer(playerData).subscribe(
+  //       (newPlayer) => {
+  //         console.log('Player added successfully:', newPlayer);
+  //         // Reset the form after successful submission
+  //         this.playerForm.reset();
+  //         this.imageBase64 = null; // Reset the image data
+  //       },
+  //       (error) => {
+  //         console.error('Error adding player:', error);
+  //       }
+  //     );
+  //   } else {
+  //     // Mark form controls as touched to display validation errors
+  //     this.playerForm.markAllAsTouched();
+  //   }
+  // }
 
-      if (this.viewModel.playerId) {
-        let resp = await this.playersService.updatePlayer(
-          this.viewModel.formData
-        );
-
-        if (resp.isError) {
-          await this._exceptionHandler.logObject(resp.errorData);
-          this._commonService.showSweetAlertToast({
-            title: resp.errorData.displayMessage,
-            icon: 'error',
-          });
-        } else {
-          // this.closePopup();
-          this._commonService.showSweetAlertToast({
-            title: 'Recipie Updated Successfully!',
-            icon: 'success',
-          });
-          this.loadPageData();
-          return;
-        }
-      } else {
-        let resp = await this.playersService.addPlayer(this.viewModel.formData);
-
-        if (resp.isError) {
-          await this._exceptionHandler.logObject(resp.errorData);
-          this._commonService.showSweetAlertToast({
-            title: resp.errorData.displayMessage,
-            icon: 'error',
-          });
-        } else {
-          // this.closePopup();
-          this._commonService.showSweetAlertToast({
-            title: 'Recipie Added Successfully!',
-            icon: 'success',
-          });
-
-          this.loadPageData();
-        }
-      }
-    } catch (error) {
-      throw error;
-    } finally {
-      this._commonService.dismissLoader();
+  onFileSelected(event: any): void {
+    const file: File = event.target.files[0];
+    if (file) {
+      const reader: FileReader = new FileReader();
+      reader.onload = () => {
+        // Convert the selected image to Base64
+        this.imageBase64 = reader.result;
+      };
+      reader.readAsDataURL(file);
     }
   }
 }

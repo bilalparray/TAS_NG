@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-12 profile">
       <div class="imgdiv">
-        <img src="assets/images/bilal.png" alt="Images of Bilal" />
+        <img [src]="player.image" alt=" of Bilal" />
       </div>
       <div class="name">
         <h3>{{ player.name }}</h3>
@@ -21,30 +21,30 @@
             <thead>
               <h3>Personal Information</h3>
               <tr>
-                <th scope="col">Born</th>
-                <td scope="col">6th February 2000</td>
+                <th>Born</th>
+                <td>{{ player.born }}</td>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <th scope="row">Birth Place</th>
-                <td scope="col">Sozeith, Kashmir</td>
+                <td>{{ player.birthplace }}</td>
               </tr>
               <tr>
                 <th scope="row">Role</th>
-                <td scope="row">Batsman</td>
+                <td scope="row">{{ player.role }}</td>
               </tr>
               <tr>
                 <th scope="row">Batting Style</th>
-                <td scope="row">Right Handed</td>
+                <td scope="row">{{ player.battingstyle }}</td>
               </tr>
               <tr>
                 <th scope="row">Bowling Style</th>
-                <td scope="row">Right Arm Spinner</td>
+                <td scope="row">{{ player.bowlingstyle }}</td>
               </tr>
               <tr>
                 <th scope="row">Debut</th>
-                <td scope="row">2020</td>
+                <td scope="row">{{ player.debut }}</td>
               </tr>
             </tbody>
           </table>
@@ -58,8 +58,8 @@
             <thead>
               <h2>2023</h2>
               <tr>
-                <th scope="col">Matches</th>
-                <td scope="col" id="BilalMatches">
+                <th>Matches</th>
+                <td id="BilalMatches">
                   {{ player.scores.runs.length }}
                 </td>
               </tr>
@@ -67,7 +67,7 @@
             <tbody>
               <tr>
                 <th scope="row">Runs</th>
-                <td scope="col" id="BilalScore">{{ player.scores.runs }}</td>
+                <td id="BilalScore">{{ player.scores.runs }}</td>
               </tr>
               <tr>
                 <th scope="row">Balls</th>
@@ -112,14 +112,14 @@
         <thead>
           <h2>Career</h2>
           <tr>
-            <th scope="col">Matches</th>
-            <td scope="col" id="BilalCareerMatches"></td>
+            <th>Matches</th>
+            <td id="BilalCareerMatches"></td>
           </tr>
         </thead>
         <tbody>
           <tr>
             <th scope="row">Runs</th>
-            <td scope="col" id="BilalCareerScore"></td>
+            <td id="BilalCareerScore"></td>
           </tr>
           <tr>
             <th scope="row">Balls</th>

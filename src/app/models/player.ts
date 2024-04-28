@@ -2,9 +2,12 @@ export interface Players {
   _id: string;
   name: string;
   role: string;
-  ranking: string;
+  birthplace: string;
+  battingstyle: string;
+  bowlingstyle: string;
   image: string;
   born: string;
+  debut: string;
   scores: {
     runs: [string];
     wickets: [string];

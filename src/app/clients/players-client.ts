@@ -10,9 +10,6 @@ import { CommonResponseCodeHandler } from './helpers/common-response-code-handle
 import { StorageCache } from './helpers/storage-cache.helper';
 import { ApiResponse } from '../models/service/api-contracts/base/api-response';
 import { ApiRequest } from '../models/service/api-contracts/base/api-request';
-import { QueryFilter } from '../models/service/api-contracts/query-filter';
-import { DeleteResponseRoot } from '../models/service/common-response/delete-response-root';
-import { DummyTeacherSM } from '../models/service/v1/dummy-teacher-s-m';
 import { Players } from '../models/player';
 
 @Injectable({
@@ -38,7 +35,7 @@ export class PlayersClient extends BaseApiClient {
   /**Get all players */
   GetPlayerById = async (id: string): Promise<ApiResponse<Players>> => {
     let resp = await this.GetResponseAsync<string, Players>(
-      `${AppConstants.ApiUrls.PLAYER}/${id}`,
+      `${AppConstants.ApiUrls.ADDPLAYER}/${id}`,
       'GET'
     );
     return resp;
@@ -49,7 +46,7 @@ export class PlayersClient extends BaseApiClient {
     addPlayerRequest: ApiRequest<Players>
   ): Promise<ApiResponse<Players>> => {
     let resp = await this.GetResponseAsync<Players, Players>(
-      AppConstants.ApiUrls.PLAYER,
+      AppConstants.ApiUrls.ADDPLAYER,
       'POST',
       addPlayerRequest
     );
@@ -60,7 +57,7 @@ export class PlayersClient extends BaseApiClient {
     player: ApiRequest<Players>
   ): Promise<ApiResponse<Players>> => {
     let resp = await this.GetResponseAsync<Players, Players>(
-      `${AppConstants.ApiUrls.PLAYER}/${player.reqData._id}`,
+      `${AppConstants.ApiUrls.ADDPLAYER}/${player.reqData._id}`,
       'PUT',
       player,
       new AdditionalRequestDetails<Players>(false, Authentication.false)

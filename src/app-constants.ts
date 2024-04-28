@@ -9,7 +9,7 @@ export const AppConstants = {
     DUMMY_TEACHER_URL: 'api/DummyTeacher',
     DUMMY_STUDENT_URL: 'api/token',
     PLAYERS: '/api/players',
-    PLAYER: '/api/data',
+    ADDPLAYER: '/api/data',
   },
 
   AppSpecific: {},

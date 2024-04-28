@@ -39,12 +39,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let player of players">
+            <tr *ngFor="let player of viewModel.players">
               <td>{{ player._id }}</td>
               <td>{{ player.name }}</td>
               <td>{{ player.image }}</td>
               <td>{{ player.role }}</td>
-              <td>{{ player.ranking }}</td>
+              <td>{{ player.birthplace }}</td>
               <td>
                 <i
                   class="fa fa-edit"
@@ -89,100 +89,60 @@
           aria-label="Close"
         ></button>
       </div>
-      <form #form="ngForm" (ngSubmit)="form_addRecipe(form)">
-        <div class="modal-body">
-          <div class="row">
-            <div class="col">
-              <label for="name" class="pb-2">Enter Full Name</label>
-              <input
-                type="text"
-                id="name"
-                class="form-control"
-                required
-                minlength="4"
-                appForbiddenName="bob"
-                [(ngModel)]="viewModel.formData.name"
-              />
-            </div>
-          </div>
-          <div class="row pt-3">
-            <div class="col">
-              <label for="power" class="pb-2">Enter Role</label>
-              <input
-                id="power"
-                type="text"
-                required="required"
-                class="form-control"
-                minlength="4"
-                placeholder="Batter"
-                [(ngModel)]="viewModel.formData.role"
-              />
-            </div>
-          </div>
-          <div class="row pt-3">
-            <div class="col">
-              <label for="power" class="pb-2">Enter Born</label>
-              <input
-                id="power"
-                type="text"
-                required="required"
-                class="form-control"
-                minlength="4"
-                placeholder="/home"
-                [(ngModel)]="viewModel.formData.born"
-              />
-            </div>
-          </div>
-          <div class="row pt-3">
-            <div class="col">
-              <label for="power" class="pb-2">Enter Rank</label>
-              <input
-                id="power"
-                type="text"
-                required="required"
-                class="form-control"
-                minlength="4"
-                placeholder="1 or 2 or ...."
-                [(ngModel)]="viewModel.formData.ranking"
-              />
-            </div>
-          </div>
-          <div class="row pt-3">
-            <div class="col">
-              <label for="image" class="pb-2">Enter Your Image</label>
-              <input
-                id="image"
-                type="file"
-                required="required"
-                class="form-control"
-                placeholder="https://teamawesomesozeith.com/images/bilal.png"
-                (change)="uploadFile($event)"
-              />
-            </div>
-          </div>
-
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <!-- Modal BUttons -->
-            <button type="submit" class="btn btn-primary" (click)="addPlayer()">
-              Save
-            </button>
-            <button
-              type="submit"
-              class="btn btn-primary"
-              (click)="updatePlayer()"
-            >
-              Update
-            </button>
-          </div>
+      <!-- example.component.html -->
+      <!-- <form (ngSubmit)="onSubmit()">
+        <div>
+          <label for="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            [(ngModel)]="viewModel.name"
+            required
+          />
         </div>
-      </form>
+        <div>
+          <label for="role">Role:</label>
+          <input
+            type="text"
+            id="role"
+            name="role"
+            [(ngModel)]="player.role"
+            required
+          />
+        </div>
+        <div>
+          <label for="ranking">Ranking:</label>
+          <input
+            type="text"
+            id="ranking"
+            name="ranking"
+            [(ngModel)]="player.ranking"
+            required
+          />
+        </div>
+        <div>
+          <label for="image">Image:</label>
+          <input
+            type="file"
+            id="image"
+            name="image"
+            (change)="onFileSelected($event)"
+          />
+        </div>
+        <div>
+          <label for="born">Born:</label>
+          <input
+            type="text"
+            id="born"
+            name="born"
+            [(ngModel)]="player.born"
+            required
+          />
+        </div>
+   
+        <button type="submit">Submit</button>
+      </form> -->
     </div>
   </div>
 </div>
