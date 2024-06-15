@@ -173,4 +173,8 @@ export class CommonService extends BaseService {
       result.next(btoa(event.target.result.toString()));
     return result;
   }
+
+  handleImageError(event: any) {
+    event.target.src = '../../../assets/images/1.png';
+  }
 }

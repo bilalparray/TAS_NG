@@ -19,6 +19,8 @@ export interface Players {
       balls: [string];
     };
   };
+  average?: number; // Define average property
+  rank?: number;
 }
 export interface Mom {
   id: number;

@@ -3,10 +3,14 @@
   <div class="row">
     <div class="col-12 profile">
       <div class="imgdiv">
-        <img [src]="player.image" alt=" of Bilal" />
+        <img
+          [src]="player.image"
+          alt=" of Bilal"
+          (error)="commonService.handleImageError($event)"
+        />
       </div>
       <div class="name">
-        <h3>{{ player.name }}</h3>
+        <h1>{{ player.name }}</h1>
         <h6>{{ player.role }}</h6>
       </div>
     </div>
@@ -15,11 +19,10 @@
   <div class="row d-flex align-items-center">
     <div class="col-lg-6 col-12 col-sm-6 d-block">
       <div class="text-lg-start text-center pt-2 text-black ps-lg-2">
-        <!-- <h5>Personal Information</h5> -->
+        <h2>Personal Information</h2>
         <div class="information">
           <table class="table text-black">
             <thead>
-              <h3>Personal Information</h3>
               <tr>
                 <th>Born</th>
                 <td>{{ player.born }}</td>
@@ -27,24 +30,24 @@
             </thead>
             <tbody>
               <tr>
-                <th scope="row">Birth Place</th>
+                <th>Birth Place</th>
                 <td>{{ player.birthplace }}</td>
               </tr>
               <tr>
-                <th scope="row">Role</th>
-                <td scope="row">{{ player.role }}</td>
+                <th>Role</th>
+                <td>{{ player.role }}</td>
               </tr>
               <tr>
-                <th scope="row">Batting Style</th>
-                <td scope="row">{{ player.battingstyle }}</td>
+                <th>Batting Style</th>
+                <td>{{ player.battingstyle }}</td>
               </tr>
               <tr>
-                <th scope="row">Bowling Style</th>
-                <td scope="row">{{ player.bowlingstyle }}</td>
+                <th>Bowling Style</th>
+                <td>{{ player.bowlingstyle }}</td>
               </tr>
               <tr>
-                <th scope="row">Debut</th>
-                <td scope="row">{{ player.debut }}</td>
+                <th>Debut</th>
+                <td>{{ player.debut }}</td>
               </tr>
             </tbody>
           </table>
@@ -53,49 +56,53 @@
     </div>
     <div class="col-lg-6 col-12 col-sm-6 d-block col-lg-6">
       <div class="text-lg-start text-center pt-2 text-black ps-lg-2">
+        <h2>2024</h2>
         <div class="information">
           <table class="table text-black table-lg-borderless">
             <thead>
-              <h2>2023</h2>
               <tr>
                 <th>Matches</th>
                 <td id="BilalMatches">
-                  {{ player.scores.runs.length }}
+                  {{ player.yearlyTotalMatches }}
                 </td>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <th scope="row">Runs</th>
-                <td id="BilalScore">{{ player.scores.runs }}</td>
+                <th>Runs</th>
+                <td id="BilalScore">{{ player.yearlyTotalRuns }}</td>
               </tr>
               <tr>
-                <th scope="row">Balls</th>
-                <td scope="row" id="BilalBalls"></td>
+                <th>Balls</th>
+                <td id="BilalBalls">{{ player.yearlyTotalBalls }}</td>
               </tr>
               <tr>
-                <th scope="row">Average</th>
-                <td scope="row" id="BilalAvg"></td>
+                <th>Average</th>
+                <td id="BilalAvg">
+                  {{ player.yearlyAverage }}
+                </td>
               </tr>
               <tr>
-                <th scope="row">Strike Rate</th>
-                <td scope="row" id="BilalStrike"></td>
+                <th>Strike Rate</th>
+                <td id="BilalStrike">{{ player.yearlyStrikeRate }}</td>
               </tr>
               <tr>
-                <th scope="row">Highest</th>
-                <td scope="row" id="BilalHighest"></td>
+                <th>Highest</th>
+                <td id="BilalHighest">{{ player.yearlyHighest }}</td>
               </tr>
               <tr>
-                <th scope="row">50s/100s</th>
-                <td scope="row" id="BilalFifties"></td>
+                <th>50s/100s</th>
+                <td id="BilalFifties">
+                  {{ player.yearlyFifties }}/{{ player.yearlyHundrend }}
+                </td>
               </tr>
               <tr>
-                <th scope="row">Wickets</th>
-                <td scope="row" id="BilalWicket"></td>
+                <th>Wickets</th>
+                <td id="BilalWicket">{{ player.yearlyWickets }}</td>
               </tr>
               <tr>
-                <th scope="row">Last Four Matches</th>
-                <td scope="row" id="BilalLastFour"></td>
+                <th>Last Four Matches</th>
+                <td id="BilalLastFour"></td>
               </tr>
             </tbody>
           </table>
@@ -105,50 +112,58 @@
   </div>
 </div>
 <!-- Career data starts here -->
-<div class="col m-lg-5 m-auto">
+<div class="col m-lg-5 m-auto" *ngIf="player">
   <div class="text-lg-start text-center pt-2 text-black ps-lg-2">
+    <h2>Career</h2>
     <div class="information">
       <table class="table text-black table-lg-borderless">
         <thead>
-          <h2>Career</h2>
           <tr>
             <th>Matches</th>
-            <td id="BilalCareerMatches"></td>
+            <td id="BilalCareerMatches">
+              {{ player.careerTotalMatches }}
+            </td>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th scope="row">Runs</th>
-            <td id="BilalCareerScore"></td>
+            <th>Runs</th>
+            <td id="BilalCareerScore">{{ player.careerTotalRuns }}</td>
           </tr>
           <tr>
-            <th scope="row">Balls</th>
-            <td scope="row" id="BilalCareerBalls"></td>
+            <th>Balls</th>
+            <td id="BilalCareerBalls">
+              {{ player.careerTotalBalls }}
+            </td>
           </tr>
           <tr>
-            <th scope="row">Average</th>
-            <td scope="row" id="BilalCareerAvg"></td>
+            <th>Average</th>
+            <td id="BilalCareerAvg">
+              {{ player.careerAverage }}
+            </td>
           </tr>
           <tr>
-            <th scope="row">Strike Rate</th>
-            <td scope="row" id="BilalCareerStrike"></td>
+            <th>Strike Rate</th>
+            <td id="BilalCareerStrike">{{ this.player.careerStrikeRate }}</td>
           </tr>
           <tr>
-            <th scope="row">Highest</th>
-            <td scope="row" id="BilalCareerHighest"></td>
+            <th>Highest</th>
+            <td id="BilalCareerHighest">{{ this.player.careerHighest }}</td>
           </tr>
           <tr>
-            <th scope="row">50s/100s</th>
-            <td scope="row" id="BilalCareerFifties"></td>
+            <th>50s/100s</th>
+            <td id="BilalCareerFifties">
+              {{ player.careerFifties }}/{{ player.careerHundrends }}
+            </td>
           </tr>
           <tr>
-            <th scope="row">Wickets</th>
-            <td scope="row" id="BilalCareerWicket"></td>
+            <th>Wickets</th>
+            <td id="BilalCareerWicket">{{ player.careerWickets }}</td>
           </tr>
-          <!-- <tr>
-              <th scope="row">Team Awesome Ranking</th>
-              <td scope="row" >1</td> 
-            </tr> -->
+          <tr>
+            <th>Team Awesome Ranking</th>
+            <td>{{ player.rank }}</td>
+          </tr>
         </tbody>
       </table>
     </div>

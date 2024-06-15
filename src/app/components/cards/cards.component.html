@@ -15,16 +15,16 @@
             class="card-img-top img"
             src="{{ player.image }}"
             alt="Card  cap"
+            (error)="_commonService.handleImageError($event)"
           />
         </div>
         <div class="card-body">
           <h5 class="card-title">
             {{ player.name
-            }}<span class="text-muted fs-6"> ({{ player.role }})</span>
+            }}<span class="text-muted fs-6"> {{ player.role }}</span>
           </h5>
           <h6 class="card-subtitle mb-2 text-muted pt-2 pb-2">
-            Team Awesome Ranking :
-            {{ player.birthplace }}
+            Team Awesome Ranking : {{ player.rank }}
           </h6>
 
           <a class="btn btn-primary" (click)="goToProfilePage(player._id)"
