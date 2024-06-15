@@ -27,8 +27,7 @@ export class PlayerComponent implements OnInit {
   async getPlayerById(playerId: string): Promise<void> {
     try {
       const response = await this.playersService.getPlayerById(playerId);
-      this.player = response.axiosResponse.data; // Assuming response structure matches Players interface
-      this.calculateAverageAndRank();
+      this.player = response.axiosResponse.data;
       this.calculateCareerWickets();
       this.calculateYearlyWickets();
       this.calculateYearlyFifties();
@@ -47,60 +46,9 @@ export class PlayerComponent implements OnInit {
       this.calculateCareerAverage();
       this.calculateYearlyTotalMatches();
       this.calculateCareerTotalMatches();
+      this.calculateTotalLastFourRuns();
     } catch (error) {
       console.error('Error fetching player:', error);
-    }
-  }
-  calculateAverageAndRank(): void {
-    if (this.player && this.player.scores && this.player.scores.career.runs) {
-      const runs = this.player.scores.career.runs.map((run: string) =>
-        Number(run)
-      );
-      const innings = this.player.scores.career.innings.length;
-      const totalRuns = runs.reduce((acc: any, curr: any) => acc + curr, 0);
-      this.player.average = innings > 0 ? totalRuns / innings : 0;
-      console.log(this.player.average);
-
-      // Retrieve all players from localStorage or other source
-      let allPlayers: Players[] = JSON.parse(
-        localStorage.getItem('players') || '[]'
-      );
-
-      // Update or add current player
-      const existingPlayerIndex = allPlayers.findIndex(
-        (p) => p._id === this.player._id
-      );
-      if (existingPlayerIndex === -1) {
-        allPlayers.push(this.player);
-      } else {
-        allPlayers[existingPlayerIndex] = this.player;
-      }
-
-      // Sort players by average descending
-      allPlayers.sort((a, b) => (b.average || 0) - (a.average || 0));
-
-      // Assign ranks based on sorted order
-      allPlayers.forEach((player, index) => {
-        player.rank = index + 1;
-      });
-
-      // Serialize only necessary properties for storage
-      const serializedPlayers = allPlayers.map((p) => ({
-        _id: p._id,
-        name: p.name,
-        role: p.role,
-        average: p.average,
-        rank: p.rank,
-        // Add other necessary properties
-      }));
-
-      // Update localStorage with serialized player data
-      localStorage.setItem('players', JSON.stringify(serializedPlayers));
-
-      // Update current player's rank
-      this.player.rank = allPlayers.find(
-        (p) => p._id === this.player._id
-      )?.rank;
     }
   }
 
@@ -200,5 +148,11 @@ export class PlayerComponent implements OnInit {
     this.player.yearlyAverage = (
       this.player.yearlyTotalRuns / this.player.scores.runs.length
     ).toFixed(2);
+  }
+  calculateTotalLastFourRuns() {
+    this.player.totalLastFourRuns = this.player.scores.lastfour.reduce(
+      (acc: any, curr: any) => Number(acc) + Number(curr),
+      0
+    );
   }
 }

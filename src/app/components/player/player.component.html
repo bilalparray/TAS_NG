@@ -25,7 +25,7 @@
             <thead>
               <tr>
                 <th>Born</th>
-                <td>{{ player.born }}</td>
+                <td>{{ player.born | date }}</td>
               </tr>
             </thead>
             <tbody>
@@ -47,7 +47,7 @@
               </tr>
               <tr>
                 <th>Debut</th>
-                <td>{{ player.debut }}</td>
+                <td>{{ player.debut | date }}</td>
               </tr>
             </tbody>
           </table>
@@ -102,7 +102,11 @@
               </tr>
               <tr>
                 <th>Last Four Matches</th>
-                <td id="BilalLastFour"></td>
+                <td id="BilalLastFour">
+                  {{ player.scores.lastfour }} ={{
+                    this.player.totalLastFourRuns
+                  }}
+                </td>
               </tr>
             </tbody>
           </table>
@@ -160,10 +164,10 @@
             <th>Wickets</th>
             <td id="BilalCareerWicket">{{ player.careerWickets }}</td>
           </tr>
-          <tr>
+          <!-- <tr>
             <th>Team Awesome Ranking</th>
             <td>{{ player.rank }}</td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
     </div>
