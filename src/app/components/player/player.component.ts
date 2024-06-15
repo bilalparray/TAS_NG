@@ -1,7 +1,6 @@
 import { CommonService } from 'src/app/services/common.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Players } from 'src/app/models/player';
 import { PlayersService } from 'src/app/services/players.service';
 
 @Component({

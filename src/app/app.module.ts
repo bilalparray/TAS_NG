@@ -11,6 +11,7 @@ import { CardsComponent } from './components/cards/cards.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PlayerComponent } from './components/player/player.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BattingOrderComponent } from './components/batting-order/batting-order.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,6 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     CardsComponent,
     PlayerComponent,
+    BattingOrderComponent,
   ],
   imports: [
     BrowserModule,
