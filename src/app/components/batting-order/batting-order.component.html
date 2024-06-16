@@ -1,1 +1,48 @@
-<p>batting-order works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 text-center">
+      <h3>Batting Order</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="table-responsive">
+        <h5>Old Batting Order</h5>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">S No</th>
+              <th scope="col">Batting Order</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of initialBattingOrder; let i = index">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ item }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="table-responsive">
+        <h5>New Batting Order</h5>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">S No</th>
+              <th scope="col">Batting Order</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of battingOrderWithScores; let i = index">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ item.name }} => Score {{ item.totalScore }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
