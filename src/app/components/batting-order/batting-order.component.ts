@@ -113,7 +113,19 @@ export class BattingOrderComponent implements OnInit {
       'initialBattingOrder'
     );
     if (!initialBattingOrderFromLocalStorage) {
-      return;
+      initialBattingOrderFromLocalStorage = JSON.stringify([
+        'Sahil Parray',
+        'Ishtiyaq Ayoub',
+        'Owais Farooq Dar',
+        'Suhail Parray',
+        'Bilal Ahmad Parray',
+        'Zahid Bashir',
+        'Ahsaan ul Haq',
+        'Showket Parray',
+        'Muzamil Fayaz',
+        'Liyaqat Tariq',
+        'Ubi Obaid',
+      ]);
     }
     this.initialBattingOrder = JSON.parse(initialBattingOrderFromLocalStorage);
   }
