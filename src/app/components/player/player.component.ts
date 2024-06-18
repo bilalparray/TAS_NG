@@ -2,6 +2,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PlayersService } from 'src/app/services/players.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-player',
@@ -12,7 +13,8 @@ export class PlayerComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private playersService: PlayersService,
-    public commonService: CommonService
+    public commonService: CommonService,
+    private ngxService: NgxUiLoaderService
   ) {}
   player!: any;
   ngOnInit() {
@@ -25,6 +27,7 @@ export class PlayerComponent implements OnInit {
 
   async getPlayerById(playerId: string): Promise<void> {
     try {
+      this.ngxService.start();
       const response = await this.playersService.getPlayerById(playerId);
       this.player = response.axiosResponse.data;
       this.calculateCareerWickets();
@@ -46,6 +49,9 @@ export class PlayerComponent implements OnInit {
       this.calculateYearlyTotalMatches();
       this.calculateCareerTotalMatches();
       this.calculateTotalLastFourRuns();
+      if (response) {
+        this.ngxService.stop();
+      }
     } catch (error) {
       console.error('Error fetching player:', error);
     }
