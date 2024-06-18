@@ -8,7 +8,7 @@
   <div class="row">
     <div class="col-md-6">
       <div class="table-responsive">
-        <h5>Old Batting Order</h5>
+        <h5 class="fw-bold">Old Batting Order</h5>
         <table class="table">
           <thead>
             <tr>
@@ -27,18 +27,20 @@
     </div>
     <div class="col-md-6">
       <div class="table-responsive">
-        <h5>New Batting Order</h5>
+        <h5 class="fw-bold">New Batting Order</h5>
         <table class="table">
           <thead>
             <tr>
               <th scope="col">S No</th>
               <th scope="col">Batting Order</th>
+              <th scope="col">Total Score</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let item of battingOrderWithScores; let i = index">
               <th scope="row">{{ i + 1 }}</th>
-              <td>{{ item.name }} => Score {{ item.totalScore }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.totalScore }}</td>
             </tr>
           </tbody>
         </table>

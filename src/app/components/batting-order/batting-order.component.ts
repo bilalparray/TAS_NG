@@ -56,7 +56,6 @@ export class BattingOrderComponent implements OnInit {
       this.calculateNewBattingOrder();
     });
   }
-
   calculateNewBattingOrder() {
     // Create a copy of initialBattingOrder to avoid modifying the original array
     let sortedInitialOrder = [...this.initialBattingOrder].sort((a, b) => {
@@ -74,8 +73,18 @@ export class BattingOrderComponent implements OnInit {
     let topFive = sortedInitialOrder.slice(0, 5);
     let lastThreeFromInitial = this.initialBattingOrder.slice(8, 11);
 
-    // Get the first eight players from topFive and lastThreeFromInitial
+    // Combine topFive and lastThreeFromInitial
     let firstEight = [...topFive, ...lastThreeFromInitial];
+
+    // Sort firstEight based on lastfour scores
+    firstEight = firstEight.sort((a, b) => {
+      let lastfourA =
+        this.playersLastFour.find((player) => player.name === a)?.lastfour || 0;
+      let lastfourB =
+        this.playersLastFour.find((player) => player.name === b)?.lastfour || 0;
+
+      return lastfourB - lastfourA;
+    });
 
     // Get remaining players from initialBattingOrder excluding firstEight
     let remainingPlayers = sortedInitialOrder.filter(
@@ -95,4 +104,43 @@ export class BattingOrderComponent implements OnInit {
       };
     });
   }
+
+  // calculateNewBattingOrder() {
+  //   // Create a copy of initialBattingOrder to avoid modifying the original array
+  //   let sortedInitialOrder = [...this.initialBattingOrder].sort((a, b) => {
+  //     // Find players' lastfour sum from playersLastFour array
+  //     let lastfourA =
+  //       this.playersLastFour.find((player) => player.name === a)?.lastfour || 0;
+  //     let lastfourB =
+  //       this.playersLastFour.find((player) => player.name === b)?.lastfour || 0;
+
+  //     // Sort players based on descending order of lastfour sum
+  //     return lastfourB - lastfourA;
+  //   });
+
+  //   // Separate players into top five and last three from initialBattingOrder
+  //   let topFive = sortedInitialOrder.slice(0, 5);
+  //   let lastThreeFromInitial = this.initialBattingOrder.slice(8, 11);
+
+  //   // Get the first eight players from topFive and lastThreeFromInitial
+  //   let firstEight = [...topFive, ...lastThreeFromInitial];
+
+  //   // Get remaining players from initialBattingOrder excluding firstEight
+  //   let remainingPlayers = sortedInitialOrder.filter(
+  //     (player) => !firstEight.includes(player)
+  //   );
+
+  //   // Combine firstEight and remainingPlayers to form new batting order
+  //   this.newBattingOrder = [...firstEight, ...remainingPlayers];
+
+  //   // Create an array with player name and total score
+  //   this.battingOrderWithScores = this.newBattingOrder.map((player) => {
+  //     let totalScore =
+  //       this.playersLastFour.find((p) => p.name === player)?.lastfour || 0;
+  //     return {
+  //       name: player,
+  //       totalScore: totalScore,
+  //     };
+  //   });
+  // }
 }
