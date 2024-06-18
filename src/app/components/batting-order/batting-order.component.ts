@@ -85,15 +85,18 @@ export class BattingOrderComponent implements OnInit {
 
     // Combine firstEight and remainingPlayers to form new batting order
     this.newBattingOrder = [...firstEight, ...remainingPlayers];
-    let hasAnyPlayerPlayedFourMatches = this.players.some((player) => {
+
+    let haveAllPlayersPlayedFourMatches = this.players.every((player) => {
       return player.scores.lastfour.length >= 4;
     });
-    if (hasAnyPlayerPlayedFourMatches) {
+
+    if (haveAllPlayersPlayedFourMatches) {
       localStorage.setItem(
         'initialBattingOrder',
         JSON.stringify(this.newBattingOrder)
       );
     }
+
     // Create an array with player name and total score
     this.battingOrderWithScores = this.newBattingOrder.map((player) => {
       let totalScore =
