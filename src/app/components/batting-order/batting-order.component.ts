@@ -9,19 +9,7 @@ import { PlayersService } from 'src/app/services/players.service';
 export class BattingOrderComponent implements OnInit {
   constructor(private playersService: PlayersService) {}
   players: any[] = [];
-  initialBattingOrder: string[] = [
-    'Sahil Parray',
-    'Ishtiyaq Ayoub',
-    'Owais Farooq Dar',
-    'Suhail Parray',
-    'Bilal Ahmad Parray',
-    'Zahid Bashir',
-    'Ahsaan ul Haq',
-    'Showket Parray',
-    'Muzamil Fayaz',
-    'Liyaqat Tariq',
-    'Ubi Obaid',
-  ];
+  initialBattingOrder: string[] = [];
   newBattingOrder: string[] = [];
   playersLastFour: any[] = [];
   battingOrderWithScores: any[] = [];
@@ -52,9 +40,8 @@ export class BattingOrderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllPlayers().then(() => {
-      this.calculateNewBattingOrder();
-    });
+    this.getBattingOrderFromStorage();
+    this.getAllPlayers();
   }
   calculateNewBattingOrder() {
     // Create a copy of initialBattingOrder to avoid modifying the original array
@@ -93,7 +80,15 @@ export class BattingOrderComponent implements OnInit {
 
     // Combine firstEight and remainingPlayers to form new batting order
     this.newBattingOrder = [...firstEight, ...remainingPlayers];
-
+    let hasAnyPlayerPlayedFourMatches = this.players.some((player) => {
+      return player.scores.lastfour.length >= 4;
+    });
+    if (hasAnyPlayerPlayedFourMatches) {
+      localStorage.setItem(
+        'initialBattingOrder',
+        JSON.stringify(this.newBattingOrder)
+      );
+    }
     // Create an array with player name and total score
     this.battingOrderWithScores = this.newBattingOrder.map((player) => {
       let totalScore =
@@ -105,42 +100,13 @@ export class BattingOrderComponent implements OnInit {
     });
   }
 
-  // calculateNewBattingOrder() {
-  //   // Create a copy of initialBattingOrder to avoid modifying the original array
-  //   let sortedInitialOrder = [...this.initialBattingOrder].sort((a, b) => {
-  //     // Find players' lastfour sum from playersLastFour array
-  //     let lastfourA =
-  //       this.playersLastFour.find((player) => player.name === a)?.lastfour || 0;
-  //     let lastfourB =
-  //       this.playersLastFour.find((player) => player.name === b)?.lastfour || 0;
-
-  //     // Sort players based on descending order of lastfour sum
-  //     return lastfourB - lastfourA;
-  //   });
-
-  //   // Separate players into top five and last three from initialBattingOrder
-  //   let topFive = sortedInitialOrder.slice(0, 5);
-  //   let lastThreeFromInitial = this.initialBattingOrder.slice(8, 11);
-
-  //   // Get the first eight players from topFive and lastThreeFromInitial
-  //   let firstEight = [...topFive, ...lastThreeFromInitial];
-
-  //   // Get remaining players from initialBattingOrder excluding firstEight
-  //   let remainingPlayers = sortedInitialOrder.filter(
-  //     (player) => !firstEight.includes(player)
-  //   );
-
-  //   // Combine firstEight and remainingPlayers to form new batting order
-  //   this.newBattingOrder = [...firstEight, ...remainingPlayers];
-
-  //   // Create an array with player name and total score
-  //   this.battingOrderWithScores = this.newBattingOrder.map((player) => {
-  //     let totalScore =
-  //       this.playersLastFour.find((p) => p.name === player)?.lastfour || 0;
-  //     return {
-  //       name: player,
-  //       totalScore: totalScore,
-  //     };
-  //   });
-  // }
+  getBattingOrderFromStorage() {
+    let initialBattingOrderFromLocalStorage = localStorage.getItem(
+      'initialBattingOrder'
+    );
+    if (!initialBattingOrderFromLocalStorage) {
+      return;
+    }
+    this.initialBattingOrder = JSON.parse(initialBattingOrderFromLocalStorage);
+  }
 }
