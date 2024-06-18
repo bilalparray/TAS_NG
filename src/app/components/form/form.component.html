@@ -15,10 +15,11 @@
           allowfullscreen=""
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
+          title="frame-map"
         ></iframe>
       </div>
       <div class="col-md-6">
-        <form>
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
           <div class="row mt-5 mt-md-0">
             <div class="col-md-9">
               <div class="row mb-4">
@@ -26,41 +27,79 @@
                   <div class="form-outline">
                     <input
                       type="text"
-                      id="form3Example1"
+                      id="firstName"
+                      formControlName="firstName"
                       class="form-control"
                       required
                     />
-                    <label class="form-label" for="form3Example1"
-                      >First name</label
+                    <label class="form-label" for="firstName">First name</label>
+                    <div
+                      *ngIf="
+                        contactForm.get('firstName')?.touched &&
+                        contactForm.get('firstName')?.invalid
+                      "
+                      class="text-danger"
                     >
+                      First name is required.
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-outline">
                     <input
                       type="email"
-                      id="form3Example2"
+                      id="email"
+                      formControlName="email"
                       class="form-control"
                       required
                     />
-                    <label class="form-label" for="form3Example2"
-                      >Email Address</label
+                    <label class="form-label" for="email">Email Address</label>
+                    <div
+                      *ngIf="
+                        contactForm.get('email')?.touched &&
+                        contactForm.get('email')?.invalid
+                      "
+                      class="text-danger"
                     >
+                      <div
+                        *ngIf="contactForm.get('email')?.errors?.['required']"
+                      >
+                        Email is required.
+                      </div>
+                      <div *ngIf="contactForm.get('email')?.errors?.['email']">
+                        Enter a valid email address.
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="form-outline mb-4">
-                <input type="text" id="form3Example3" class="form-control" />
-                <label class="form-label" for="form3Example3">Subject</label>
+                <input
+                  type="text"
+                  id="subject"
+                  formControlName="subject"
+                  class="form-control"
+                />
+                <label class="form-label" for="subject">Subject</label>
               </div>
               <div class="form-outline mb-4">
                 <textarea
+                  id="message"
+                  formControlName="message"
                   class="form-control"
-                  id="form4Example3"
                   rows="4"
                   required
                 ></textarea>
-                <label class="form-label" for="form4Example3">Message</label>
+                <label class="form-label" for="message">Message</label>
+                <div
+                  *ngIf="
+                    contactForm.get('message')?.touched &&
+                    contactForm.get('message')?.invalid
+                  "
+                  class="text-danger"
+                >
+                  Message is required.
+                </div>
               </div>
               <div class="text-center text-md-start">
                 <button
