@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PlayerComponent } from './components/player/player.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BattingOrderComponent } from './components/batting-order/batting-order.component';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +29,7 @@ import { BattingOrderComponent } from './components/batting-order/batting-order.
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    NgxUiLoaderModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

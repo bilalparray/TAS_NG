@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Players } from 'src/app/models/player';
 import { Router } from '@angular/router';
-
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { PlayersService } from 'src/app/services/players.service';
 import { CommonService } from 'src/app/services/common.service';
 @Component({
@@ -21,7 +21,8 @@ export class CardsComponent {
   constructor(
     private playersService: PlayersService,
     private router: Router,
-    public _commonService: CommonService
+    public _commonService: CommonService,
+    private ngxService: NgxUiLoaderService
   ) {}
   ngOnInit(): void {
     //callling the get players function on initialiszatin or start
@@ -29,8 +30,12 @@ export class CardsComponent {
   }
   async getAllPlayers() {
     try {
+      this.ngxService.start();
       let resp = await this.playersService.getAllPlayers();
       this.players = resp.axiosResponse.data;
+      if (resp) {
+        this.ngxService.stop();
+      }
       this.calculateAverages();
       this.sortAndRankPlayers();
     } catch (error) {

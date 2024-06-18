@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { PlayersService } from 'src/app/services/players.service';
 
 @Component({
@@ -7,7 +8,10 @@ import { PlayersService } from 'src/app/services/players.service';
   styleUrls: ['./batting-order.component.scss'],
 })
 export class BattingOrderComponent implements OnInit {
-  constructor(private playersService: PlayersService) {}
+  constructor(
+    private playersService: PlayersService,
+    private ngxService: NgxUiLoaderService
+  ) {}
   players: any[] = [];
   initialBattingOrder: string[] = [];
   newBattingOrder: string[] = [];
@@ -44,6 +48,7 @@ export class BattingOrderComponent implements OnInit {
     this.getAllPlayers();
   }
   calculateNewBattingOrder() {
+    this.ngxService.start();
     // Create a copy of initialBattingOrder to avoid modifying the original array
     let sortedInitialOrder = [...this.initialBattingOrder].sort((a, b) => {
       // Find players' lastfour sum from playersLastFour array
@@ -98,6 +103,9 @@ export class BattingOrderComponent implements OnInit {
         totalScore: totalScore,
       };
     });
+    if (this.newBattingOrder.length > 1) {
+      this.ngxService.stop();
+    }
   }
 
   getBattingOrderFromStorage() {
