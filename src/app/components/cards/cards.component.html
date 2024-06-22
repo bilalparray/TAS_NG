@@ -13,7 +13,7 @@
         <div class="image-container">
           <img
             class="card-img-top img"
-            src="{{ player.image }}"
+            [src]="'data:image/jpeg;base64,' + player.image"
             alt="Card  cap"
             (error)="_commonService.handleImageError($event)"
           />

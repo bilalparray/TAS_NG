@@ -4,7 +4,7 @@
     <div class="col-12 profile">
       <div class="imgdiv">
         <img
-          [src]="player.image"
+          [src]="'data:image/jpeg;base64,' + player.image"
           alt=" of Bilal"
           (error)="commonService.handleImageError($event)"
         />
