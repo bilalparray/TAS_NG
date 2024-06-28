@@ -11,41 +11,19 @@ export class BattingOrderComponent implements OnInit {
   constructor(
     private playersService: PlayersService,
     private ngxService: NgxUiLoaderService
-  ) {}
+  ) {
+    this.ngxService.start();
+  }
   players: any[] = [];
   initialBattingOrder: string[] = [];
   newBattingOrder: string[] = [];
   playersLastFour: any[] = [];
   battingOrderWithScores: any[] = [];
 
-  async getAllPlayers() {
-    try {
-      let resp = await this.playersService.getAllPlayers();
-      this.players = resp.axiosResponse.data;
+  async ngOnInit() {
+    await this.getAllPlayers();
 
-      this.playersLastFour = [];
-
-      this.players.forEach((player) => {
-        const lastfourSum = player.scores.lastfour.reduce(
-          (a: number, b: number) => Number(a) + Number(b),
-          0
-        );
-        const playerWithLastFour = {
-          name: player.name,
-          lastfour: lastfourSum,
-        };
-
-        this.playersLastFour.push(playerWithLastFour);
-      });
-    } catch (error) {
-      console.error('Error fetching players:', error);
-      throw error;
-    }
-  }
-
-  ngOnInit() {
-    this.getBattingOrderFromStorage();
-    this.getAllPlayers();
+    await this.getBattingOrderFromStorage();
   }
   calculateNewBattingOrder() {
     this.ngxService.start();
@@ -111,25 +89,52 @@ export class BattingOrderComponent implements OnInit {
     }
   }
 
-  getBattingOrderFromStorage() {
+  async getBattingOrderFromStorage() {
     let initialBattingOrderFromLocalStorage = localStorage.getItem(
       'initialBattingOrder'
     );
     if (!initialBattingOrderFromLocalStorage) {
       initialBattingOrderFromLocalStorage = JSON.stringify([
-        'Sahil Parray',
-        'Ishtiyaq Ayoub',
         'Owais Farooq Dar',
-        'Suhail Parray',
-        'Bilal Ahmad Parray',
         'Zahid Bashir',
+        'Suhail Parray',
+        'Sahil Parray',
         'Ahsaan ul Haq',
-        'Showket Parray',
-        'Muzamil Fayaz',
         'Liyaqat Tariq',
+        'Muzamil Fayaz',
         'Ubi Obaid',
+        'Ishtiyaq Ayoub',
+        'Bilal Ahmad Parray',
+        'Showket Parray',
       ]);
     }
     this.initialBattingOrder = JSON.parse(initialBattingOrderFromLocalStorage);
+    if (this.initialBattingOrder.length > 0) {
+      this.ngxService.stop();
+    }
+  }
+  async getAllPlayers() {
+    try {
+      let resp = await this.playersService.getAllPlayers();
+      this.players = resp.axiosResponse.data;
+
+      this.playersLastFour = [];
+
+      this.players.forEach((player) => {
+        const lastfourSum = player.scores.lastfour.reduce(
+          (a: number, b: number) => Number(a) + Number(b),
+          0
+        );
+        const playerWithLastFour = {
+          name: player.name,
+          lastfour: lastfourSum,
+        };
+
+        this.playersLastFour.push(playerWithLastFour);
+      });
+    } catch (error) {
+      console.error('Error fetching players:', error);
+      throw error;
+    }
   }
 }
