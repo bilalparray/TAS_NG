@@ -1,18 +1,29 @@
 .card {
-  height: 400px;
   border: none !important;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  .image-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    height: 310px;
-    overflow: hidden;
-    position: relative;
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.image-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 200px; /* Adjust as needed */
+  overflow: hidden;
+}
+
+.image-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }

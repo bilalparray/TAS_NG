@@ -10,22 +10,15 @@
       *ngFor="let player of players"
     >
       <div class="card">
-        <div class="image-container">
-          <img
-            class="card-img-top img"
-            [src]="'data:image/jpeg;base64,' + player.image"
-            alt="Card  cap"
-            (error)="_commonService.handleImageError($event)"
-          />
-        </div>
+        <img
+          [src]="'data:image/jpeg;base64,' + player.image"
+          alt="Card  cap"
+          (error)="_commonService.handleImageError($event)"
+          class="card-img-top"
+        />
         <div class="card-body">
-          <h5 class="card-title">
-            {{ player.name }}
-            <!-- <span class="text-muted fs-6"> {{ player.role }}</span> -->
-          </h5>
-          <h6 class="card-subtitle mb-2 text-muted pt-2 pb-2">
-            Team Awesome Ranking : {{ player.rank }}
-          </h6>
+          <h5 class="card-title">{{ player.name }}</h5>
+          <p class="card-text">Team Awesome Ranking : {{ player.rank }}</p>
 
           <a
             class="btn btn-outline-primary"
