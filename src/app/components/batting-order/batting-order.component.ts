@@ -25,8 +25,79 @@ export class BattingOrderComponent implements OnInit {
 
     await this.getBattingOrderFromStorage();
   }
+  // calculateNewBattingOrder() {
+  //   this.ngxService.start();
+  //   // Create a copy of initialBattingOrder to avoid modifying the original array
+  //   let sortedInitialOrder = [...this.initialBattingOrder].sort((a, b) => {
+  //     // Find players' lastfour sum from playersLastFour array
+  //     let lastfourA =
+  //       this.playersLastFour.find((player) => player.name === a)?.lastfour || 0;
+  //     let lastfourB =
+  //       this.playersLastFour.find((player) => player.name === b)?.lastfour || 0;
+
+  //     // Sort players based on descending order of lastfour sum
+  //     return lastfourB - lastfourA;
+  //   });
+
+  //   // Separate players into top five and last three from initialBattingOrder
+  //   let topFive = sortedInitialOrder.slice(0, 5);
+  //   let l3 = this.initialBattingOrder.slice(8, 11);
+  //   let lastThreeFromInitial: any[] = [];
+
+  //   l3.forEach((player) => {
+  //     if (!topFive.includes(player)) {
+  //       lastThreeFromInitial.push(player);
+  //     }
+  //   });
+
+  //   // Combine topFive and lastThreeFromInitial
+  //   let firstEight = [...topFive, ...lastThreeFromInitial];
+
+  //   // Sort firstEight based on lastfour scores
+  //   firstEight = firstEight.sort((a, b) => {
+  //     let lastfourA =
+  //       this.playersLastFour.find((player) => player.name === a)?.lastfour || 0;
+  //     let lastfourB =
+  //       this.playersLastFour.find((player) => player.name === b)?.lastfour || 0;
+
+  //     return lastfourB - lastfourA;
+  //   });
+
+  //   // Get remaining players from initialBattingOrder excluding firstEight
+  //   let remainingPlayers = sortedInitialOrder.filter(
+  //     (player) => !firstEight.includes(player)
+  //   );
+
+  //   // Combine firstEight and remainingPlayers to form new batting order
+  //   this.newBattingOrder = [...firstEight, ...remainingPlayers];
+
+  //   let haveAllPlayersPlayedFourMatches = this.players.every((player) => {
+  //     return player.scores.lastfour.length >= 4;
+  //   });
+
+  //   if (haveAllPlayersPlayedFourMatches) {
+  //     localStorage.setItem(
+  //       'initialBattingOrder',
+  //       JSON.stringify(this.newBattingOrder)
+  //     );
+  //   }
+
+  //   // Create an array with player name and total score
+  //   this.battingOrderWithScores = this.newBattingOrder.map((player) => {
+  //     let totalScore =
+  //       this.playersLastFour.find((p) => p.name === player)?.lastfour || 0;
+  //     return {
+  //       name: player,
+  //       totalScore: totalScore,
+  //     };
+  //   });
+  //   if (this.newBattingOrder.length > 1) {
+  //     this.ngxService.stop();
+  //   }
+  // }
   calculateNewBattingOrder() {
     this.ngxService.start();
+
     // Create a copy of initialBattingOrder to avoid modifying the original array
     let sortedInitialOrder = [...this.initialBattingOrder].sort((a, b) => {
       // Find players' lastfour sum from playersLastFour array
@@ -41,7 +112,24 @@ export class BattingOrderComponent implements OnInit {
 
     // Separate players into top five and last three from initialBattingOrder
     let topFive = sortedInitialOrder.slice(0, 5);
-    let lastThreeFromInitial = this.initialBattingOrder.slice(8, 11);
+    let l3 = this.initialBattingOrder.slice(8, 11);
+    let lastThreeFromInitial: any[] = [];
+
+    l3.forEach((player) => {
+      if (!topFive.includes(player)) {
+        lastThreeFromInitial.push(player);
+      }
+    });
+
+    // If lastThreeFromInitial has less than 3 players, add from remaining players
+    let remainingPlayers = sortedInitialOrder.filter(
+      (player) =>
+        !topFive.includes(player) && !lastThreeFromInitial.includes(player)
+    );
+
+    while (lastThreeFromInitial.length < 3 && remainingPlayers.length > 0) {
+      lastThreeFromInitial.push(remainingPlayers.shift());
+    }
 
     // Combine topFive and lastThreeFromInitial
     let firstEight = [...topFive, ...lastThreeFromInitial];
@@ -57,7 +145,7 @@ export class BattingOrderComponent implements OnInit {
     });
 
     // Get remaining players from initialBattingOrder excluding firstEight
-    let remainingPlayers = sortedInitialOrder.filter(
+    remainingPlayers = sortedInitialOrder.filter(
       (player) => !firstEight.includes(player)
     );
 
@@ -84,6 +172,7 @@ export class BattingOrderComponent implements OnInit {
         totalScore: totalScore,
       };
     });
+
     if (this.newBattingOrder.length > 1) {
       this.ngxService.stop();
     }
@@ -99,8 +188,8 @@ export class BattingOrderComponent implements OnInit {
         'Zahid Bashir',
         'Suhail Parray',
         'Sahil Parray',
-        'Ahsaan ul Haq',
         'Liyaqat Tariq',
+        'Ahsaan ul Haq',
         'Muzamil Fayaz',
         'Ubi Obaid',
         'Ishtiyaq Ayoub',
