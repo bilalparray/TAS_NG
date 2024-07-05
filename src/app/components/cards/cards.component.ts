@@ -25,14 +25,21 @@ export class CardsComponent {
     private ngxService: NgxUiLoaderService
   ) {}
   ngOnInit(): void {
-    //callling the get players function on initialiszatin or start
-    this.getAllPlayers();
+    let playersFromStorage = sessionStorage.getItem('players');
+    if (!playersFromStorage) {
+      this.getAllPlayers();
+    } else {
+      this.players = JSON.parse(playersFromStorage);
+      this.calculateAverages();
+      this.sortAndRankPlayers();
+    }
   }
   async getAllPlayers() {
     try {
       this.ngxService.start();
       let resp = await this.playersService.getAllPlayers();
       this.players = resp.axiosResponse.data;
+      sessionStorage.setItem('players', JSON.stringify(this.players));
       if (resp) {
         this.ngxService.stop();
       }
