@@ -8,7 +8,7 @@ export const environment = {
   enableResponseCacheProcessing: true,
   applicationVersion: '1.0.0', //on this we are checking curruent version and api version then allowing user to use the app if he has updated version.
   apiDefaultTimeout: 10,
-  apiBaseUrl: 'https://teamawesomebackend.onrender.com',
+  apiBaseUrl: 'https://teamawesomebackend-sgsc.onrender.com',
   LoggingInfo: {
     cacheLogs: true,
     logToConsole: true,
