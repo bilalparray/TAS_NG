@@ -9,7 +9,7 @@
   <div class="row d-flex justify-content-center align-items-center">
     <div class="col-md-6 text-center">
       <img
-        src="{{ momData.image }}"
+        [src]="'data:image/jpeg;base64,' + momData.image"
         alt="mom-image"
         class="mom-image rounded"
         (error)="commonService.handleImageError($event)"

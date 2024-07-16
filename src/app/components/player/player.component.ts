@@ -174,22 +174,34 @@ export class PlayerComponent implements OnInit {
         const base64Image = e.target?.result as string;
         // Remove the data URL prefix
         const base64ImageWithoutPrefix = base64Image.split(',')[1];
-        this.player.image = base64ImageWithoutPrefix;
+
         this.updateImage.image = base64ImageWithoutPrefix;
-        this.updateImageInDB();
+        this.updateImageInDB(base64ImageWithoutPrefix);
       };
       reader.readAsDataURL(file);
     }
   }
 
-  async updateImageInDB() {
+  async updateImageInDB(base64ImageWithoutPrefix: string) {
     try {
+      this.ngxService.start();
       let resp = await this.playerService.updateImage(this.updateImage);
-      // this.players = resp.axiosResponse.data;
-      console.log(resp);
 
-      if (resp) {
-        // this.ngxService.stop();
+      if (resp.isError) {
+        this.commonService.showSweetAlertToast({
+          icon: 'error',
+          text: 'An error occurred during the upload. Please try using an image smaller than 400kb and jpg only.',
+          timer: 3000,
+        });
+        this.ngxService.stop();
+      } else {
+        this.player.image = base64ImageWithoutPrefix;
+        this.ngxService.stop();
+        this.commonService.showSweetAlertToast({
+          icon: 'success',
+          text: 'Image uploaded successfully!',
+          timer: 2000,
+        });
       }
     } catch (error) {
       throw error;

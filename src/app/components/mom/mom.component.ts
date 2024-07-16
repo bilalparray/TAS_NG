@@ -29,7 +29,6 @@ export class MomComponent {
     try {
       let resp = await this.playerService.getManOfTheMatch();
       this.momData = resp.axiosResponse.data;
-      console.log(this.momData);
 
       sessionStorage.setItem(
         'mom',
