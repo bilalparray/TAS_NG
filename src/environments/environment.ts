@@ -6,9 +6,10 @@ export const environment = {
   production: false,
   apiResponseCacheTimeoutInMinutes: 5,
   enableResponseCacheProcessing: true,
-  applicationVersion: '1.0.0', //on this we are checking curruent version and api version then allowing user to use the app if he has updated version.
+  applicationVersion: '0.0.4', //on this we are checking curruent version and api version then allowing user to use the app if he has updated version.
   apiDefaultTimeout: 10,
   apiBaseUrl: 'https://teamawesomebackend-sgsc.onrender.com',
+  // apiBaseUrl: 'http://localhost:3000',
   LoggingInfo: {
     cacheLogs: true,
     logToConsole: true,

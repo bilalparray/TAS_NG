@@ -7,6 +7,9 @@ import { StorageService } from './services/storage.service';
 import { App } from '@capacitor/app';
 import { Location } from '@angular/common';
 import { Toast } from '@capacitor/toast';
+import { AppConstants } from 'src/app-constants';
+import { environment } from 'src/environments/environment';
+import { AppVersionSM } from './models/service/v1/app-version-sm';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,8 +17,13 @@ import { Toast } from '@capacitor/toast';
 })
 export class AppComponent {
   title = 'teamawesomesozeith';
+  stopApplicationFlow: boolean = false;
+
+  versionInformation = new AppVersionSM();
+  updateAvailable: boolean = false;
   constructor(
     public commonService: CommonService,
+    private accountService: AccountService,
     private router: Router,
     private location: Location
   ) {}
@@ -24,11 +32,19 @@ export class AppComponent {
   }
   async initializeApp() {
     this.setupBackButtonListener();
+    this.getAllVersionInfoAndCheckForUpdates();
     App.addListener('appStateChange', ({ isActive }) => {
       if (isActive) {
         this.handleBackButton();
       }
     });
+  }
+
+  /**
+   * Updates the app to the latest version from the Google Play Store.
+   */
+  async updateApp() {
+    console.log('Updating');
   }
 
   setupBackButtonListener() {
@@ -73,5 +89,36 @@ export class AppComponent {
 
   goBack() {
     this.location.back();
+  }
+
+  async getAllVersionInfoAndCheckForUpdates() {
+    try {
+      const resp = await this.accountService.getAllVersionInfo();
+
+      if (resp.isError) {
+        throw new Error(AppConstants.ErrorPrompts.Load_Data_Error);
+      } else {
+        this.versionInformation = resp.axiosResponse.data;
+
+        const currentEnvironmentVersion = Number(
+          environment.applicationVersion.replace(/\./g, '')
+        );
+
+        const minimumVersionFromApi = Number(
+          this.versionInformation.minimumVersion.replace(/\./g, '')
+        );
+
+        // block flow if currenct version is below minimum version
+        if (currentEnvironmentVersion < minimumVersionFromApi) {
+          this.stopApplicationFlow = true;
+        }
+      }
+    } catch (error) {
+      this.commonService.showSweetAlertToast({
+        text: 'Error fetching Version \n ' + error,
+        timer: 500,
+      });
+      throw new Error(AppConstants.ErrorPrompts.Unknown_Error);
+    }
   }
 }
