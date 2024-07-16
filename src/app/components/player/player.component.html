@@ -3,10 +3,19 @@
   <div class="row">
     <div class="col-12 profile">
       <div class="imgdiv">
+        <!-- Component HTML template -->
+        <input
+          type="file"
+          (change)="onFileSelected($event)"
+          style="display: none"
+          #fileInput
+        />
         <img
           [src]="'data:image/jpeg;base64,' + player.image"
-          alt=" of Bilal"
+          alt="Player Image"
           (error)="commonService.handleImageError($event)"
+          (click)="fileInput.click()"
+          style="cursor: pointer"
         />
       </div>
       <div class="name">

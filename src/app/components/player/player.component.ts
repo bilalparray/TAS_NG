@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PlayersService } from 'src/app/services/players.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { PlayerService } from 'src/app/services/player.service';
+import { ImageUpdate } from 'src/app/models/service/v1/image';
 
 @Component({
   selector: 'app-player',
@@ -13,15 +15,18 @@ export class PlayerComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private playersService: PlayersService,
+    private playerService: PlayerService,
     public commonService: CommonService,
     private ngxService: NgxUiLoaderService
   ) {}
   player!: any;
+  updateImage = new ImageUpdate();
   ngOnInit() {
     // Access route parameters using ActivatedRoute
     let id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.getPlayerById(id);
+      this.updateImage._id = id;
     }
   }
 
@@ -159,5 +164,35 @@ export class PlayerComponent implements OnInit {
       (acc: any, curr: any) => Number(acc) + Number(curr),
       0
     );
+  }
+
+  onFileSelected(event: any): void {
+    const file: File = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const base64Image = e.target?.result as string;
+        // Remove the data URL prefix
+        const base64ImageWithoutPrefix = base64Image.split(',')[1];
+        this.player.image = base64ImageWithoutPrefix;
+        this.updateImage.image = base64ImageWithoutPrefix;
+        this.updateImageInDB();
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  async updateImageInDB() {
+    try {
+      let resp = await this.playerService.updateImage(this.updateImage);
+      // this.players = resp.axiosResponse.data;
+      console.log(resp);
+
+      if (resp) {
+        // this.ngxService.stop();
+      }
+    } catch (error) {
+      throw error;
+    }
   }
 }
