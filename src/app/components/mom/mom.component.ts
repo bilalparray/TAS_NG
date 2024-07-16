@@ -44,6 +44,11 @@ export class MomComponent {
         )
       );
     } catch (error) {
+      this.commonService.showSweetAlertToast({
+        icon: 'error',
+        text: 'An error occurred While Fetching the Man of The Match.',
+        timer: 3000,
+      });
       throw error;
     }
   }

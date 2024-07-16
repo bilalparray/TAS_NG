@@ -58,7 +58,11 @@ export class PlayerComponent implements OnInit {
         this.ngxService.stop();
       }
     } catch (error) {
-      console.error('Error fetching player:', error);
+      this.commonService.showSweetAlertToast({
+        icon: 'error',
+        text: 'An error occurred while fetching the player.',
+        timer: 2000,
+      });
     }
   }
 
@@ -142,7 +146,6 @@ export class PlayerComponent implements OnInit {
       100
     ).toFixed(2);
   }
-
   calculateYearlyTotalMatches() {
     this.player.yearlyTotalMatches = this.player.scores.runs.length;
   }

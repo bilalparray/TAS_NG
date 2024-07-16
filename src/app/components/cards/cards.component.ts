@@ -12,10 +12,7 @@ import { CommonService } from 'src/app/services/common.service';
 export class CardsComponent {
   players: any[] = [];
   player!: Players;
-  ranking = {
-    id: '',
-    name: '',
-  };
+
   //to hide or show cards
 
   constructor(
@@ -37,32 +34,20 @@ export class CardsComponent {
       this.ngxService.start();
       let resp = await this.playersService.getAllPlayers();
       this.players = resp.axiosResponse.data;
-
       sessionStorage.setItem('players', JSON.stringify(this.players));
       if (resp) {
         this.ngxService.stop();
       }
     } catch (error) {
+      this._commonService.showSweetAlertToast({
+        icon: 'error',
+        text: 'An error occurred while Fetching the Players.',
+        timer: 3000,
+      });
       throw error;
     }
   }
-  // calculateAverages(): void {
-  //   this.players = this.players.map((player) => {
-  //     // Convert runs from string to number
-  //     const runs = player.scores.career.runs.map((run: any) => Number(run));
 
-  //     const totalRuns = runs.reduce((acc: any, curr: any) => acc + curr, 0);
-  //     const innings = player.scores.career.runs.length;
-  //     player.average = innings > 0 ? totalRuns / innings : 0;
-
-  //     return player;
-  //   });
-  // }
-
-  // sortAndRankPlayers(): void {
-  //   this.players.sort((a, b) => b.average - a.average);
-  //   this.players.forEach((player, index) => (player.rank = index + 1));
-  // }
   goToProfilePage(id: string) {
     this.router.navigate(['/player/', id]);
   }
