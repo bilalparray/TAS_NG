@@ -30,8 +30,8 @@ export class CardsComponent {
       this.getAllPlayers();
     } else {
       this.players = JSON.parse(playersFromStorage);
-      this.calculateAverages();
-      this.sortAndRankPlayers();
+      // this.calculateAverages();
+      // this.sortAndRankPlayers();
     }
   }
   async getAllPlayers() {
@@ -39,33 +39,34 @@ export class CardsComponent {
       this.ngxService.start();
       let resp = await this.playersService.getAllPlayers();
       this.players = resp.axiosResponse.data;
+
       sessionStorage.setItem('players', JSON.stringify(this.players));
       if (resp) {
         this.ngxService.stop();
       }
-      this.calculateAverages();
-      this.sortAndRankPlayers();
+      // this.calculateAverages();
+      // this.sortAndRankPlayers();
     } catch (error) {
       throw error;
     }
   }
-  calculateAverages(): void {
-    this.players = this.players.map((player) => {
-      // Convert runs from string to number
-      const runs = player.scores.career.runs.map((run: any) => Number(run));
+  // calculateAverages(): void {
+  //   this.players = this.players.map((player) => {
+  //     // Convert runs from string to number
+  //     const runs = player.scores.career.runs.map((run: any) => Number(run));
 
-      const totalRuns = runs.reduce((acc: any, curr: any) => acc + curr, 0);
-      const innings = player.scores.career.runs.length;
-      player.average = innings > 0 ? totalRuns / innings : 0;
+  //     const totalRuns = runs.reduce((acc: any, curr: any) => acc + curr, 0);
+  //     const innings = player.scores.career.runs.length;
+  //     player.average = innings > 0 ? totalRuns / innings : 0;
 
-      return player;
-    });
-  }
+  //     return player;
+  //   });
+  // }
 
-  sortAndRankPlayers(): void {
-    this.players.sort((a, b) => b.average - a.average);
-    this.players.forEach((player, index) => (player.rank = index + 1));
-  }
+  // sortAndRankPlayers(): void {
+  //   this.players.sort((a, b) => b.average - a.average);
+  //   this.players.forEach((player, index) => (player.rank = index + 1));
+  // }
   goToProfilePage(id: string) {
     this.router.navigate(['/player/', id]);
   }

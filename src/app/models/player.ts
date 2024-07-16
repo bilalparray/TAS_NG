@@ -17,6 +17,7 @@ export interface Players {
       runs: [string];
       wickets: [string];
       balls: [string];
+      ranking: String;
     };
   };
   average?: number; // Define average property

@@ -35,6 +35,10 @@ const routes: Routes = [
     path: 'player/:id',
     component: PlayerComponent,
   },
+  {
+    path: '**',
+    component: HomeComponent,
+  },
 ];
 
 @NgModule({
