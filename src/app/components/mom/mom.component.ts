@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Mom } from 'src/app/models/player';
-// import { PlayerService } from 'src/app/services/player.service';
+import { ManOfTheMatch } from 'src/app/models/service/v1/man-of-the-match';
+import { CommonService } from 'src/app/services/common.service';
+import { PlayerService } from 'src/app/services/player.service';
 
 @Component({
   selector: 'app-mom',
@@ -8,15 +10,42 @@ import { Mom } from 'src/app/models/player';
   styleUrls: ['./mom.component.scss'],
 })
 export class MomComponent {
-  momData: any = {};
-  // constructor(private playerService: PlayerService) {}
+  momData = new ManOfTheMatch();
+  constructor(
+    private playerService: PlayerService,
+    public commonService: CommonService
+  ) {}
   ngOnInit() {
-    // this.getMom();
+    let momFromStorage = sessionStorage.getItem('mom');
+    if (!momFromStorage) {
+      this.getManOfTheMatch();
+    } else {
+      this.momData = JSON.parse(momFromStorage);
+    }
   }
   // fetch mom
-  // getMom() {
-  //   this.playerService.getMom().subscribe((data) => {
-  //     this.momData = data.mom[0];
-  //   });
-  // }
+
+  async getManOfTheMatch() {
+    try {
+      let resp = await this.playerService.getManOfTheMatch();
+      this.momData = resp.axiosResponse.data;
+      console.log(this.momData);
+
+      sessionStorage.setItem(
+        'mom',
+        JSON.stringify(
+          (this.momData = {
+            id: this.momData.id,
+            name: this.momData.name,
+            image: this.momData.image,
+            paragraph: this.momData.paragraph,
+            runs: this.momData.runs,
+            wickets: this.momData.wickets,
+          })
+        )
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
 }

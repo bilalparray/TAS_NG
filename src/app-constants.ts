@@ -11,6 +11,7 @@ export const AppConstants = {
     PLAYERS: '/api/players',
     ADDPLAYER: '/api/data',
     APP_VERSIONING: '/api/updateapp',
+    ManOfTheMatch: '/api/mom',
   },
 
   AppSpecific: {},

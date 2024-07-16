@@ -30,8 +30,6 @@ export class CardsComponent {
       this.getAllPlayers();
     } else {
       this.players = JSON.parse(playersFromStorage);
-      // this.calculateAverages();
-      // this.sortAndRankPlayers();
     }
   }
   async getAllPlayers() {
@@ -44,8 +42,6 @@ export class CardsComponent {
       if (resp) {
         this.ngxService.stop();
       }
-      // this.calculateAverages();
-      // this.sortAndRankPlayers();
     } catch (error) {
       throw error;
     }

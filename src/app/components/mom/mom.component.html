@@ -12,10 +12,10 @@
         src="{{ momData.image }}"
         alt="mom-image"
         class="mom-image rounded"
+        (error)="commonService.handleImageError($event)"
       />
     </div>
     <div class="col-md-6">
-      <h3 class="text-white d-none d-md-block">Man Of the Match</h3>
       <h2 class="text-white text-center text-md-start">{{ momData.name }}</h2>
       <p class="text-white mom-para">
         {{ momData.paragraph }}
