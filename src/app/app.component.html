@@ -1,13 +1,16 @@
 <div *ngIf="this.stopApplicationFlow" class="position-center">
   <p>Please Update Your Application</p>
-
-  <button type="button" class="btn btn-primary" (click)="updateApp()">
+  <a
+    type="button"
+    class="btn btn-primary"
+    href="https://teamawesomesozeith.com/app.apk"
+    download="app.apk"
+  >
     Update
-  </button>
+  </a>
 </div>
 <div *ngIf="!this.stopApplicationFlow">
   <router-outlet></router-outlet>
-
   <app-footer></app-footer>
 </div>
 

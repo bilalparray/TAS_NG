@@ -40,13 +40,6 @@ export class AppComponent {
     });
   }
 
-  /**
-   * Updates the app to the latest version from the Google Play Store.
-   */
-  async updateApp() {
-    console.log('Updating');
-  }
-
   setupBackButtonListener() {
     document.addEventListener('backbutton', () => {
       if (this.router.url != '/home') {
