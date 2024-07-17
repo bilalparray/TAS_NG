@@ -18,7 +18,7 @@
   a {
     .img-fluid {
       min-width: 25px;
-      max-width: 45px;
+      max-width: 35px;
     }
     color: var(--black-bg-title-color);
     font-size: 18px;
@@ -30,5 +30,61 @@
   }
   .active {
     color: var(--active-color);
+  }
+}
+
+.offcanvas {
+  .offcanvas-header {
+    padding: 0 10px 0 0;
+    display: flex;
+    align-items: flex-start;
+    button {
+      padding-top: 40px;
+    }
+    .brand {
+      width: 100px;
+      height: 100px;
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .offcanvas-body {
+    padding: 10px;
+    .offcanvas-content {
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+
+      .title {
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 16px;
+        margin-bottom: 5px;
+      }
+      .tagline {
+        font-size: 12px;
+        font-weight: normal;
+        line-height: 12px;
+      }
+      .list {
+        .list-unstyled {
+          display: flex;
+          align-items: flex-start;
+          flex-direction: column;
+          li {
+            font-size: 16px;
+            font-weight: 600;
+          }
+        }
+      }
+    }
   }
 }
