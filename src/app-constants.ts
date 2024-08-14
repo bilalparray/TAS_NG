@@ -13,6 +13,7 @@ export const AppConstants = {
     APP_VERSIONING: '/api/updateapp',
     ManOfTheMatch: '/api/mom',
     ImageUpdate: '/api/players/image',
+    BattingOrder: '/api/batting-order',
   },
 
   AppSpecific: {},
