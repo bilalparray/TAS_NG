@@ -14,7 +14,7 @@ export class BattingOrderComponent implements OnInit {
     private battingOrderService: BattingOrderService,
     private ngxService: NgxUiLoaderService
   ) {
-    // this.ngxService.start();
+    this.ngxService.start();
   }
   players: any[] = [];
   initialBattingOrder: string[] = [];
@@ -130,23 +130,28 @@ export class BattingOrderComponent implements OnInit {
 
   async getAllPlayers() {
     try {
+      this.ngxService.start();
       let resp = await this.playersService.getAllPlayers();
-      this.players = resp.axiosResponse.data;
+      if (resp) {
+        this.ngxService.stop();
 
-      this.playersLastFour = [];
+        this.players = resp.axiosResponse.data;
 
-      this.players.forEach((player) => {
-        const lastfourSum = player.scores.lastfour.reduce(
-          (a: number, b: number) => Number(a) + Number(b),
-          0
-        );
-        const playerWithLastFour = {
-          name: player.name,
-          lastfour: lastfourSum,
-        };
+        this.playersLastFour = [];
 
-        this.playersLastFour.push(playerWithLastFour);
-      });
+        this.players.forEach((player) => {
+          const lastfourSum = player.scores.lastfour.reduce(
+            (a: number, b: number) => Number(a) + Number(b),
+            0
+          );
+          const playerWithLastFour = {
+            name: player.name,
+            lastfour: lastfourSum,
+          };
+
+          this.playersLastFour.push(playerWithLastFour);
+        });
+      }
     } catch (error) {
       console.error('Error fetching players:', error);
       throw error;

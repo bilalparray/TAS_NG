@@ -2,8 +2,8 @@ export const environment = {
   production: true,
   apiResponseCacheTimeoutInMinutes: 5,
   enableResponseCacheProcessing: true,
-  applicationVersion: '0.0.1',
-  apiBaseUrl: 'live_url',
+  applicationVersion: '0.0.7',
+  apiBaseUrl: 'https://teamawesomebackend-sgsc.onrender.com',
   apiDefaultTimeout: 10,
   LoggingInfo: {
     cacheLogs: false,
