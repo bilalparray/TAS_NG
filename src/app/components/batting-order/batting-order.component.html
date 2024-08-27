@@ -6,34 +6,16 @@
   </div>
 
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-12">
       <div class="table-responsive">
-        <h5 class="fw-bold">Old Batting Order</h5>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">S No</th>
-              <th scope="col">Batting Order</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of initialBattingOrder; let i = index">
-              <th scope="row">{{ i + 1 }}</th>
-              <td>{{ item }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="table-responsive">
-        <h5 class="fw-bold">New Batting Order</h5>
+        <h5 class="fw-bold text-center">New Batting Order</h5>
         <table class="table">
           <thead>
             <tr>
               <th scope="col">S No</th>
               <th scope="col">Batting Order</th>
               <th scope="col">Total Score</th>
+              <!-- New column for Total Score -->
             </tr>
           </thead>
           <tbody>
@@ -41,17 +23,11 @@
               <th scope="row">{{ i + 1 }}</th>
               <td>{{ item.name }}</td>
               <td>{{ item.totalScore }}</td>
+              <!-- Display total score -->
             </tr>
           </tbody>
         </table>
       </div>
-    </div>
-  </div>
-  <div class="row" *ngIf="newBattingOrder.length < 1">
-    <div class="col-12 text-center mb-1">
-      <button class="btn btn-primary" (click)="calculateNewBattingOrder()">
-        Calculate New Batting Order
-      </button>
     </div>
   </div>
 </div>

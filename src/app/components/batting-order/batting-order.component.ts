@@ -13,9 +13,8 @@ export class BattingOrderComponent implements OnInit {
     private playersService: PlayersService,
     private battingOrderService: BattingOrderService,
     private ngxService: NgxUiLoaderService
-  ) {
-    this.ngxService.start();
-  }
+  ) {}
+
   players: any[] = [];
   initialBattingOrder: string[] = [];
   newBattingOrder: string[] = [];
@@ -24,9 +23,9 @@ export class BattingOrderComponent implements OnInit {
 
   async ngOnInit() {
     await this.getAllPlayers();
-
     await this.getBattingOrder();
   }
+
   async getBattingOrder() {
     try {
       this.ngxService.start();
@@ -38,123 +37,50 @@ export class BattingOrderComponent implements OnInit {
           'Sorry We Could not Fetch Batting Order! Please Check Your Internet.'
         );
       } else {
-        this.ngxService.stop();
         this.initialBattingOrder = resp.axiosResponse.data.order;
+        this.calculateBattingOrderWithScores(); // Calculate batting order with scores after fetching data
+        this.ngxService.stop();
       }
     } catch (error) {
-      throw error;
-    }
-  }
-  calculateNewBattingOrder() {
-    this.ngxService.start();
-
-    // Create a copy of initialBattingOrder to avoid modifying the original array
-    let sortedInitialOrder = [...this.initialBattingOrder].sort((a, b) => {
-      // Find players' lastfour sum from playersLastFour array
-      let lastfourA =
-        this.playersLastFour.find((player) => player.name === a)?.lastfour || 0;
-      let lastfourB =
-        this.playersLastFour.find((player) => player.name === b)?.lastfour || 0;
-
-      // Sort players based on descending order of lastfour sum
-      return lastfourB - lastfourA;
-    });
-
-    // Separate players into top five and last three from initialBattingOrder
-    let topFive = sortedInitialOrder.slice(0, 5);
-    let l3 = this.initialBattingOrder.slice(8, 11);
-    let lastThreeFromInitial: any[] = [];
-
-    l3.forEach((player) => {
-      if (!topFive.includes(player)) {
-        lastThreeFromInitial.push(player);
-      }
-    });
-
-    // If lastThreeFromInitial has less than 3 players, add from remaining players
-    let remainingPlayers = sortedInitialOrder.filter(
-      (player) =>
-        !topFive.includes(player) && !lastThreeFromInitial.includes(player)
-    );
-
-    while (lastThreeFromInitial.length < 3 && remainingPlayers.length > 0) {
-      lastThreeFromInitial.push(remainingPlayers.shift());
-    }
-
-    // Combine topFive and lastThreeFromInitial
-    let firstEight = [...topFive, ...lastThreeFromInitial];
-
-    // Sort firstEight based on lastfour scores
-    firstEight = firstEight.sort((a, b) => {
-      let lastfourA =
-        this.playersLastFour.find((player) => player.name === a)?.lastfour || 0;
-      let lastfourB =
-        this.playersLastFour.find((player) => player.name === b)?.lastfour || 0;
-
-      return lastfourB - lastfourA;
-    });
-
-    // Get remaining players from initialBattingOrder excluding firstEight
-    remainingPlayers = sortedInitialOrder.filter(
-      (player) => !firstEight.includes(player)
-    );
-
-    // Combine firstEight and remainingPlayers to form new batting order
-    this.newBattingOrder = [...firstEight, ...remainingPlayers];
-
-    let haveAllPlayersPlayedFourMatches = this.players.every((player) => {
-      return player.scores.lastfour.length >= 4;
-    });
-
-    if (haveAllPlayersPlayedFourMatches) {
-      let resp = this.battingOrderService.setNewBattingOrder({
-        order: this.newBattingOrder,
-        id: 'null',
-      });
-    }
-
-    // Create an array with player name and total score
-    this.battingOrderWithScores = this.newBattingOrder.map((player) => {
-      let totalScore =
-        this.playersLastFour.find((p) => p.name === player)?.lastfour || 0;
-      return {
-        name: player,
-        totalScore: totalScore,
-      };
-    });
-
-    if (this.newBattingOrder.length > 1) {
+      console.error('Error fetching batting order:', error);
       this.ngxService.stop();
+      throw error;
     }
   }
 
   async getAllPlayers() {
     try {
       this.ngxService.start();
-      let resp = await this.playersService.getAllPlayers();
+      const resp = await this.playersService.getAllPlayers();
       if (resp) {
-        this.ngxService.stop();
-
         this.players = resp.axiosResponse.data;
-
-        this.playersLastFour = [];
-
-        this.players.forEach((player) => {
-          const lastfourSum = player.scores.lastfour.reduce(
+        this.playersLastFour = this.players.map((player) => ({
+          name: player.name,
+          lastfour: player.scores.lastfour.reduce(
             (a: number, b: number) => Number(a) + Number(b),
             0
-          );
-          const playerWithLastFour = {
-            name: player.name,
-            lastfour: lastfourSum,
-          };
-
-          this.playersLastFour.push(playerWithLastFour);
-        });
+          ),
+        }));
+        this.ngxService.stop();
       }
     } catch (error) {
       console.error('Error fetching players:', error);
+      this.ngxService.stop();
       throw error;
     }
+  }
+
+  // Calculate the new batting order with total scores
+  calculateBattingOrderWithScores() {
+    this.battingOrderWithScores = this.initialBattingOrder.map((playerName) => {
+      const playerData = this.playersLastFour.find(
+        (player) => player.name === playerName
+      );
+      const totalScore = playerData ? playerData.lastfour : 0;
+      return {
+        name: playerName,
+        totalScore: totalScore,
+      };
+    });
   }
 }
