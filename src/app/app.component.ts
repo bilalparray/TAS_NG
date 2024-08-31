@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { CommonService } from './services/common.service';
-import { LogHandlerService } from './services/log-handler.service';
 import { AccountService } from './services/account.service';
-import { StorageService } from './services/storage.service';
 import { App } from '@capacitor/app';
 import { Location } from '@angular/common';
 import { Toast } from '@capacitor/toast';
