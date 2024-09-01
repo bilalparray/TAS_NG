@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<resources>
+    <string name="app_name">Team Awesome Sozeith</string>
+    <string name="title_activity_main">Team Awesome Sozeith</string>
+    <string name="package_name">com.teamawesomesozeith.app</string>
+    <string name="custom_url_scheme">com.teamawesomesozeith.app</string>
+    <string name="admob_app_id">ca-app-pub-3940256099942544/9257395921</string>
+</resources>
