@@ -1,15 +1,20 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { CommonService } from './services/common.service';
-import { LogHandlerService } from './services/log-handler.service';
 import { AccountService } from './services/account.service';
-import { StorageService } from './services/storage.service';
 import { App } from '@capacitor/app';
 import { Location } from '@angular/common';
 import { Toast } from '@capacitor/toast';
 import { AppConstants } from 'src/app-constants';
 import { environment } from 'src/environments/environment';
 import { AppVersionSM } from './models/service/v1/app-version-sm';
+import {
+  AdMob,
+  AdMobInitializationOptions,
+  BannerAdOptions,
+  BannerAdPosition,
+  BannerAdSize,
+} from '@capacitor-community/admob';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -32,6 +37,7 @@ export class AppComponent {
   }
   async initializeApp() {
     this.setupBackButtonListener();
+    await this.initializeAds();
     this.getAllVersionInfoAndCheckForUpdates();
     App.addListener('appStateChange', ({ isActive }) => {
       if (isActive) {
@@ -113,5 +119,25 @@ export class AppComponent {
       });
       throw new Error(AppConstants.ErrorPrompts.Unknown_Error);
     }
+  }
+
+  async initializeAds() {
+    if (environment.controlAds.showAds == false) return;
+    try {
+      let options: AdMobInitializationOptions = { initializeForTesting: false };
+      await AdMob.initialize(options);
+    } catch (error) {}
+
+    if (environment.controlAds.showAdMobBannerAds) await this.ShowBannerAds();
+  }
+
+  async ShowBannerAds() {
+    const options: BannerAdOptions = {
+      adId: environment.controlAds.admobBannerAdUnitId,
+      adSize: BannerAdSize.ADAPTIVE_BANNER,
+      position: BannerAdPosition.BOTTOM_CENTER,
+      isTesting: !environment.production,
+    };
+    AdMob.showBanner(options);
   }
 }

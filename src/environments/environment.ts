@@ -10,6 +10,20 @@ export const environment = {
   apiDefaultTimeout: 10,
   apiBaseUrl: 'https://teamawesomebackend-sgsc.onrender.com',
   // apiBaseUrl: 'http://localhost:3000',
+
+  controlAds: {
+    showAds: true,
+    showAdsenseAds: true,
+    showAdMobAds: true,
+    showAdsenseBannerAds: true,
+    showAdMobBannerAds: true,
+    admobAppId: 'ca-app-pub-5495185583121040~',
+    admobBannerAdUnitId: 'ca-app-pub-5495185583121040/',
+    adsensePubId: 'ca-pub-9678211037324376',
+    adsenseAdSlotId: '1416242989',
+    adsenseBannerAdsHeight: 150, //px
+    adsenseBannerAdsWidth: 320, //px
+  },
   LoggingInfo: {
     cacheLogs: true,
     logToConsole: true,

@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BattingOrderComponent } from './components/batting-order/batting-order.component';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { BottomNavbarComponent } from './components/bottom-navbar/bottom-navbar.component';
+import { PrivacyComponent } from './components/privacy/privacy.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +26,7 @@ import { BottomNavbarComponent } from './components/bottom-navbar/bottom-navbar.
     PlayerComponent,
     BattingOrderComponent,
     BottomNavbarComponent,
+    PrivacyComponent,
   ],
   imports: [
     BrowserModule,

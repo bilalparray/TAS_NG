@@ -31,12 +31,12 @@ export class CardsComponent {
   }
   async getAllPlayers() {
     try {
-      this.ngxService.start();
+      this.ngxService.startLoader('loader-01');
       let resp = await this.playersService.getAllPlayers();
       this.players = resp.axiosResponse.data;
       sessionStorage.setItem('players', JSON.stringify(this.players));
       if (resp) {
-        this.ngxService.stop();
+        this.ngxService.stopLoader('loader-01');
       }
     } catch (error) {
       this._commonService.showSweetAlertToast({
