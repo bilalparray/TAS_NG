@@ -12,7 +12,7 @@ export const environment = {
   // apiBaseUrl: 'http://localhost:3000',
 
   controlAds: {
-    showAds: true,
+    showAds: false,
     showAdsenseAds: true,
     showAdMobAds: true,
     showAdsenseBannerAds: true,
