@@ -1,41 +1,22 @@
 <div class="card bottom-nav mt-auto">
-  <a routerLink="/home" routerLinkActive="active"
-    ><img src="../../../assets/images/house.png" class="img-fluid" alt=""
-  /></a>
+  <a routerLink="/home" routerLinkActive="active"><img src="../../../assets/images/house.png" class="img-fluid"
+      alt="" /></a>
 
-  <a routerLink="/form" class="icon" routerLinkActive="active"
-    ><img src="../../../assets/images/email.png" class="img-fluid" alt=""
-  /></a>
-  <a routerLink="/batting-order" routerLinkActive="active"
-    ><img src="../../../assets/images/cricket.png" class="img-fluid" alt=""
-  /></a>
-  <a
-    type="button"
-    data-bs-toggle="offcanvas"
-    data-bs-target="#staticBackdrop"
-    aria-controls="staticBackdrop"
-    ><img src="../../../assets/images/stack.png" class="img-fluid" alt=""
-  /></a>
+  <a routerLink="/form" class="icon" routerLinkActive="active"><img src="../../../assets/images/email.png"
+      class="img-fluid" alt="" /></a>
+  <a routerLink="/batting-order" routerLinkActive="active"><img src="../../../assets/images/cricket.png"
+      class="img-fluid" alt="" /></a>
+  <a type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop"><img
+      src="../../../assets/images/stack.png" class="img-fluid" alt="" /></a>
 </div>
 
-<div
-  class="offcanvas offcanvas-start w-75"
-  data-bs-backdrop="static"
-  data-bs-backdrop="true"
-  tabindex="-1"
-  id="staticBackdrop"
-  aria-labelledby="staticBackdropLabel"
->
+<div class="offcanvas offcanvas-start w-75" data-bs-backdrop="static" data-bs-backdrop="true" tabindex="-1"
+  id="staticBackdrop" aria-labelledby="staticBackdropLabel">
   <div class="offcanvas-header">
     <div class="brand">
       <img src="../../../assets/images/1.png" alt="" />
     </div>
-    <button
-      type="button"
-      class="btn-close"
-      data-bs-dismiss="offcanvas"
-      aria-label="Close"
-    ></button>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
     <div class="offcanvas-content">
@@ -46,31 +27,13 @@
 
       <div class="list">
         <ul class="list-unstyled">
-          <li
-            routerLink="/form"
-            class="mb-2"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#staticBackdrop"
-            aria-controls="staticBackdrop"
-          >
+          <li routerLink="/form" class="mb-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop"
+            aria-controls="staticBackdrop">
             <i class="bi bi-envelope"></i> Feedback
           </li>
-          <li
-            routerLink="/privacy"
-            class="mb-2"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#staticBackdrop"
-            aria-controls="staticBackdrop"
-          >
+          <li routerLink="/privacy" class="mb-2" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
             <i class="bi bi-envelope"></i> Privacy Policy
-          </li>
-
-          <li class="mb-2">
-            <a href="https://teamawesomesozeith.com/app.apk" download>
-              <i class="bi bi-arrow-down-circle"></i>Download App</a
-            >
           </li>
           <li class="mb-2"><i class="bi bi-gear"></i> Version {{ version }}</li>
         </ul>
