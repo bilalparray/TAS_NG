@@ -21,6 +21,7 @@ export class PlayerComponent implements OnInit {
   ) {}
   player!: any;
   updateImage = new ImageUpdate();
+  year = new Date();
   ngOnInit() {
     // Access route parameters using ActivatedRoute
     let id = this.route.snapshot.paramMap.get('id');

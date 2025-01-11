@@ -4,19 +4,9 @@
     <div class="col-12 profile">
       <div class="imgdiv">
         <!-- Component HTML template -->
-        <input
-          type="file"
-          (change)="onFileSelected($event)"
-          style="display: none"
-          #fileInput
-        />
-        <img
-          [src]="'data:image/jpeg;base64,' + player.image"
-          alt="Player Image"
-          (error)="commonService.handleImageError($event)"
-          (click)="fileInput.click()"
-          style="cursor: pointer"
-        />
+        <input type="file" (change)="onFileSelected($event)" style="display: none" #fileInput />
+        <img [src]="'data:image/jpeg;base64,' + player.image" alt="Player Image"
+          (error)="commonService.handleImageError($event)" (click)="fileInput.click()" style="cursor: pointer" />
       </div>
       <div class="name">
         <h1>{{ player.name }}</h1>
@@ -65,7 +55,7 @@
     </div>
     <div class="col-lg-6 col-12 col-sm-6 d-block col-lg-6">
       <div class="text-lg-start text-center pt-2 text-black ps-lg-2">
-        <h2>2024</h2>
+        <h2>{{year.getFullYear()}}</h2>
         <div class="information">
           <table class="table text-black table-lg-borderless">
             <thead>
