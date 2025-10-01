@@ -5,8 +5,8 @@
       <div class="imgdiv">
         <!-- Component HTML template -->
         <input type="file" (change)="onFileSelected($event)" style="display: none" #fileInput />
-        <img [src]="'data:image/jpeg;base64,' + player.image" alt="Player Image"
-          (error)="commonService.handleImageError($event)" (click)="fileInput.click()" style="cursor: pointer" />
+        <img [src]="player.image" alt="Player Image" (error)="commonService.handleImageError($event)"
+          (click)="fileInput.click()" style="cursor: pointer" />
       </div>
       <div class="name">
         <h1>{{ player.name }}</h1>

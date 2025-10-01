@@ -36,6 +36,8 @@ export class PlayerComponent implements OnInit {
       this.ngxService.start();
       const response = await this.playersService.getPlayerById(playerId);
       this.player = response.axiosResponse.data;
+      console.log(this.player);
+
       this.calculateCareerWickets();
       this.calculateYearlyWickets();
       this.calculateYearlyFifties();

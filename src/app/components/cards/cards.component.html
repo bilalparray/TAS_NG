@@ -6,28 +6,17 @@
     </div>
   </div>
   <div class="row d-flex justify-content-center gy-3">
-    <div
-      class="col-12 col-sm-6 col-md-4 col-lg-4 text-center"
-      *ngFor="let player of players"
-    >
+    <div class="col-12 col-sm-6 col-md-4 col-lg-4 text-center" *ngFor="let player of players">
       <div class="card">
-        <img
-          [src]="'data:image/jpeg;base64,' + player.image"
-          alt="Card  cap"
-          (error)="_commonService.handleImageError($event)"
-          class="card-img-top"
-        />
+        <img [src]=" player.image" alt="Card  cap" (error)="_commonService.handleImageError($event)"
+          class="card-img-top" />
         <div class="card-body">
           <h5 class="card-title">{{ player.name }}</h5>
           <p class="card-text">
             Team Awesome Ranking : {{ player.scores.career.ranking }}
           </p>
 
-          <a
-            class="btn btn-outline-primary"
-            (click)="goToProfilePage(player._id)"
-            >Profile</a
-          >
+          <a class="btn btn-outline-primary" (click)="goToProfilePage(player._id)">Profile</a>
         </div>
       </div>
     </div>
